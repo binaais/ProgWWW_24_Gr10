@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Devices Review</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <header id="top">
+        <h1>Tech Devices Review</h1>
+     <!-- Homepage -->
+     <div id="homepage" class="homepage">
+     <!-- Feature Highlights Section -->
+<section id="feature-highlights" class="feature-highlights">
+   <!-- <h2>Explore Our Device Categories</h2> -->
+    <div class="category-cards">
+        <!-- Smartphone Category Card -->
+        <div class="category-card" id="smartphones-card">
+            <img src="images/smartphone-category.png" alt="Smartphones">
+            <h3>Smartphones</h3>
+            <p>Find the latest and greatest smartphones.</p>
+            <a href="#devices" class="view-all-btn" data-category="smartphones">View All</a>
+        </div>
+
+        <!-- Laptop Category Card -->
+        <div class="category-card" id="laptops-card">
+            <img src="images/laptop-category.png" alt="Laptops">
+            <h3>Laptops</h3>
+            <p>Discover top-performing laptops for all your needs.</p>
+            <a href="#devices" class="view-all-btn" data-category="laptops">View All</a>
+        </div>
+
+        <!-- Tablet Category Card -->
+        <div class="category-card" id="tablets-card">
+            <img src="images/tablet-category.png" alt="Tablets">
+            <h3>Tablets</h3>
+            <p>Explore a range of tablets for entertainment or productivity.</p>
+            <a href="#devices" class="view-all-btn" data-category="tablets">View All</a>
+        </div>
+
+        <!-- Headphones Category Card -->
+        <div class="category-card" id="headphones-card">
+            <img src="images/headphone-category.png" alt="Headphones">
+            <h3>Headphones</h3>
+            <p>Choose from a variety of audio devices for the best sound experience.</p>
+            <a href="#devices" class="view-all-btn" data-category="headphones">View All</a>
+        </div>
+    </div>
+</section>
+           <!-- <i class="fa fa-search search-icon"></i> -->
+        </div>
+        <!-- Hamburger menu icon -->
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    
+        <!-- Sidebar menu -->
+        <nav id="sidebar-menu">
+            <ul>
+                <li><a href="#devices.html" class="nav-link" data-target="devices">All Devices</a></li>
+                <li><a href="#about.html" class="nav-link" data-target="about">About Us</a></li>
+                <li><a href="#contact.html" class="nav-link" data-target="contact">Contact Us</a></li>
+               
+                <li><a href="#admin.html" class="nav-link" data-target="admin">Admin Panel</a></li>
+
+
+
+            </ul>
+        </nav>
+        
+        <!-- Search and sorting 
+        <div class="search-container">
+            <input type="text" id="searchBar" placeholder="Search for devices...">
+            <i class="fa fa-search search-icon"></i>
+        </div>
+        
+        <div id="sort-options">
+            <button id="sort-rating">Sort by Rating</button>
+            <button id="sort-release">Sort by Release Date</button>
+            <button id="sort-category">Sort by Category</button>
+        </div>-->
+    </header>
+    <!-- Search and Sorting Options (visible in 'All Devices' section) -->
+<div id="search-sort-options" style="display: none;">
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search for devices...">
+        <i class="fa fa-search search-icon"></i>
+    </div>
+    <div id="sort-options">
+        <button id="sort-rating">Sort by Rating</button>
+        <button id="sort-release">Sort by Release Date</button>
+        <button id="sort-category">Sort by Category</button>
+    </div>
+</div>
+
+    <main style="display: none;" id="main-content">
+        <section id="devices">
+            <h2>Available Devices</h2>
+            <div id="device-container"></div>
+            <div id="pagination"></div>
+        </section>
+
+    
+        <section id="about">
+            <h2>Welcome to Tech Devices Review</h2>
+            <p>We aim to provide honest and detailed reviews of the latest tech gadgets, from smartphones to smartwatches and everything in between.</p>
+            <h3>Our Team</h3>
+            <p>Dedicated tech enthusiasts bringing you the best insights and tips for choosing the right device.</p>
+        </section>
+    
+        <section id="admin">
+            <div id="admin-panel" class="modal-content">
+                <h2>Device Management Panel</h2>
+                <form id="device-form">
+                    <input type="text" id="device-name" placeholder="Device Name" required>
+                    <input type="text" id="device-category" placeholder="Category" required>
+                    <input type="date" id="device-release-date" placeholder="Release Date" required>
+                    <input type="number" step="0.1" id="device-rating" placeholder="Rating" min="0" max="5" required>
+                    <input type="text" id="device-image-url" placeholder="Image URL">
+                    <textarea id="device-specs" placeholder="Specifications" required></textarea>
+                    <button type="submit" class="btn">Save Device</button>
+                </form>
+                <div id="admin-device-list"></div>
+            </div>
+        </section>
+    
+        <section id="contact">
+            <h2>Get in Touch</h2>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <button type="submit" class="btn">Send</button>
+            </form>
+        </section>
+    </main>
+<div id="device-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <img id="modal-image" src="" alt="Device Image" style="display: none;">
+        <h2 id="modal-title">Device Name</h2>
+        <p id="modal-description">Device full specifications...</p>
+<div id="modal-reviews"></div>
+
+<div class="rating-input">
+    <p>Rate this device:</p>
+    <div id="star-rating" class="stars">
+        <!-- Empty stars to represent rating -->
+        <span class="fa fa-star" data-value="1"></span>
+        <span class="fa fa-star" data-value="2"></span>
+        <span class="fa fa-star" data-value="3"></span>
+        <span class="fa fa-star" data-value="4"></span>
+        <span class="fa fa-star" data-value="5"></span>
+    </div>
+</div>
+<textarea id="modal-review-text" placeholder="Add a review..." rows="4"></textarea>
+<button class="btn" onclick="submitModalReview()">Submit Review</button>
+
+    </div>
+</div>
+
+    <footer>
+        <p>&copy; 2024 Tech Devices Review</p>
+    </footer>
+</body>
+</html>

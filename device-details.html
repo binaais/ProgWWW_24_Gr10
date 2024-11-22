@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Details</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Device Details</h1>
+    </header>
+    <main>
+        <section id="device-details">
+            <h2 id="device-name">Device Name</h2>
+            <img id="device-image" src="" alt="Device Image">
+            <p id="device-specs">Specifications will be displayed here.</p>
+            <div id="device-reviews">
+                <h3>Reviews</h3>
+                <div id="reviews-container">
+                    <p>No reviews yet. Be the first to review!</p>
+                </div>
+                <textarea id="review-text" placeholder="Add a review..." rows="4"></textarea>
+                <div id="star-rating" class="stars">
+                    <!-- Empty stars for the rating -->
+                    <span class="fa fa-star" data-value="1"></span>
+                    <span class="fa fa-star" data-value="2"></span>
+                    <span class="fa fa-star" data-value="3"></span>
+                    <span class="fa fa-star" data-value="4"></span>
+                    <span class="fa fa-star" data-value="5"></span>
+                </div>
+                <button onclick="submitReview()">Submit Review</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Tech Devices Review</p>
+    </footer>
+    <script>
+        // This script will dynamically populate the details
+        $(document).ready(function () {
+            // Parse the device data from the query parameters
+            const queryParams = new URLSearchParams(window.location.search);
+            const deviceIndex = queryParams.get('deviceIndex');
+            const devices = JSON.parse(localStorage.getItem('devices')); // Retrieve from storage
+
+            if (devices && devices[deviceIndex]) {
+                const device = devices[deviceIndex];
+                $('#device-name').text(device.name);
+                $('#device-image').attr('src', device.imageUrl);
+                $('#device-specs').text(device.specs);
+
+                if (device.reviews && device.reviews.length > 0) {
+                    const reviewsHtml = device.reviews.map(review => {
+                        const stars = '⭐'.repeat(review.rating);
+                        return `<div><p>${stars}</p><p>${review.text}</p></div>`;
+                    }).join('');
+                    $('#reviews-container').html(reviewsHtml);
+                }
+            }
+            $(document).on('click', '#star-rating .fa-star', function () {
+    const starValue = $(this).data('value');
+    $('#star-rating .fa-star').each(function () {
+        const value = $(this).data('value');
+        $(this).toggleClass('selected', value <= starValue);
+    });
+});
+
+        });
+
+        function submitReview() {
+    // Retrieve the review text and star rating
+    const reviewText = $('#review-text').val();
+    const starRating = $('#star-rating .fa-star.selected').length;
+
+    // Validate input
+    if (!reviewText || starRating === 0) {
+        alert('Please add a review and select a star rating.');
+        return;
+    }
+
+    // Parse the device index from the URL
+    const queryParams = new URLSearchParams(window.location.search);
+    const deviceIndex = queryParams.get('deviceIndex');
+    const devices = JSON.parse(localStorage.getItem('devices'));
+
+    if (devices && devices[deviceIndex]) {
+        // Add the new review to the selected device
+        const device = devices[deviceIndex];
+        device.reviews.push({ text: reviewText, rating: starRating });
+
+        // Save updated devices array back to localStorage
+        localStorage.setItem('devices', JSON.stringify(devices));
+
+        // Clear the input fields
+        $('#review-text').val('');
+        $('#star-rating .fa-star').removeClass('selected');
+
+        // Refresh the reviews section
+        const reviewsHtml = device.reviews.map(review => {
+            const stars = '⭐'.repeat(review.rating);
+            return `<div><p>${stars}</p><p>${review.text}</p></div>`;
+        }).join('');
+        $('#reviews-container').html(reviewsHtml);
+
+        alert('Thank you for your review!');
+    } else {
+        alert('An error occurred while submitting your review. Please try again.');
+    }
+}
+
+    </script>
+</body>
+</html>

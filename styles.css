@@ -1,0 +1,724 @@
+
+/* Styling for the homepage */
+.homepage {
+    text-align: center;
+    padding: 50px 20px;
+    height: 70vh; /* Full viewport height */
+    background: url('images/logo3.png') no-repeat center center/cover; /* Hero section with background */
+    background-size: contain; /* Ensures the image covers the whole container without stretching */
+    background-position: center center; /* Centers the background image */
+    background-attachment: fixed; /* Optional: Makes the background image fixed during scrolling */
+    color: white; /* White text on dark background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+/* Overlay for better contrast over background */
+.homepage::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+   /*  background: rgba(0, 0, 0, 0.4); Slight dark overlay */
+    z-index: 1;
+}
+.homepage h1 {
+    font-size: 4rem;
+    font-family: 'Montserrat', sans-serif;
+    z-index: 2; /* Make sure it appears above the overlay */
+    margin-bottom: 20px;
+}
+
+.homepage p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    z-index: 2; /* Ensure it's above the overlay */
+    max-width: 600px;
+    margin: 10px auto;
+}
+
+/* Buttons to guide users */
+.homepage .btn {
+    background-color: #1e3d59;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    font-size: 1.2rem;
+    border-radius: 25px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 2;
+    text-decoration: none; /* Remove underline if it's a link */
+    margin: 10px;
+}
+
+.homepage .btn:hover {
+    background-color: #3b6978; /* Darker shade on hover */
+}
+/* Style for the hamburger menu icon */
+.hamburger {
+    display: inline-block;
+    cursor: pointer;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 35px;
+    height: 30px;
+    z-index: 2; /* Ensure the hamburger is on top */
+}
+
+.hamburger span {
+    display: block;
+    background-color: white;
+    height: 4px;
+    margin: 6px 0;
+    transition: 0.3s;
+}
+
+#sidebar-menu {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Hidden initially */
+    width: 250px;
+    height: 100%;
+    background-color: #1e3d59;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: left 0.3s ease;
+    z-index: 10;
+}
+
+#sidebar-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+#sidebar-menu ul li {
+    margin: 15px 0;
+}
+
+#sidebar-menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+#sidebar-menu ul li a:hover {
+    color: #3b6978;
+}
+
+/* Active state for sidebar */
+#sidebar-menu.active {
+    left: 0; /* Slide in */
+}
+
+h5{
+    text-align: center;
+    color:#112e48
+}
+/* General styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header styling */
+    header {
+        background-color: #1e3d59;
+        color: white;
+        padding: 20px 0;
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        position: relative;
+
+        /* Add the logo as a background 
+        background-image: url('images/logo1.png'); /* Update with your logo's path 
+        background-size: contain;  Adjust the size of the logo 
+        background-repeat: no-repeat;
+        background-position: center; /* Center the logo 
+        opacity: 0.9; /* Adjust opacity to make the logo faint */
+    }
+
+    h1 {
+        font-family: 'Montserrat', sans-serif; /* Use the font name you selected */
+        font-size: 3rem;
+        position: relative;
+        z-index: 4; /* Ensures title text appears above the background logo */
+        pointer-events: none;
+    }
+    /* Make sure the search-sort options are hidden by default and visible in the devices section */
+/* Styling for the #search-sort-options container */
+#search-sort-options {
+    display: none; /* Hide by default */
+    margin-top: 20px;
+    text-align: center; /* Center content */
+}
+
+/* Styling for the search bar */
+#searchBar {
+    max-width: 600px; /* Max width to prevent stretching */
+    margin: 12px auto; /* Center the search bar horizontally */
+    border-radius: 20px; /* Rounded corners */
+    padding: 10px;
+    width: 100%; /* Ensure it fills the container */
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    text-align: left; /* Text left-aligned */
+    transition: box-shadow 0.3s; /* Smooth transition for focus */
+}
+
+#searchBar::placeholder {
+    color: #aaa; /* Lighter color for placeholder */
+    font-style: italic; /* Italicize placeholder text */
+}
+
+.search-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 400px; /* Limit width of the search bar */
+    margin: 0 auto; /* Center the search container */
+}
+
+.search-icon {
+    position: absolute;
+    right: 3%; /* Position the icon inside the search bar */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1e3d59; /* Icon color */
+}
+
+#searchBar:focus {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Highlight when focused */
+    outline: none; /* Remove outline on focus */
+}
+
+/* Sorting buttons container */
+#sort-options {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    gap: 15px; /* Space between the buttons */
+    margin: 20px 0;
+}
+
+/* Sorting buttons style */
+#sort-options button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #112e48;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth background color change */
+}
+
+#sort-options button:hover {
+    background-color: #3b6978; /* Darker shade on hover */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #searchBar {
+        width: 90%; /* Increase width on smaller screens */
+    }
+
+    /* Devices section layout for smaller screens */
+    .device {
+        width: 100%; /* Full width for devices */
+        margin: 10px 0;
+    }
+
+    /* Adjust the sidebar on smaller screens */
+    #sidebar-menu {
+        width: 100%;
+    }
+}
+
+#device-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap to the next line */
+    justify-content: space-between; /* Adds space between the cards */
+}
+
+.device {
+    width: calc(50% - 20px); /* Adjusted for two-column layout */
+    margin: 10px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Add rounded corners */
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-sizing: border-box; /* Ensures padding is included in width */
+}
+
+
+/*.device {
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    margin: 5px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+*/
+.device:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.device img {
+    width: 25%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Typography enhancements */
+h2 {
+    color: #1e3d59;
+    font-size: 2rem;
+    text-align: center;
+}
+
+p {
+    margin: 5px 0;
+}
+/* Styling for the View Details button */
+.view-details-btn {
+    background-color: #1e3d59; /* Button background color */
+    color: white; /* Text color */
+    border: none; /* Remove default border */
+    padding: 8px 16px; /* Button padding */
+    font-size: 1rem; /* Font size */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition effects */
+}
+
+.view-details-btn:hover {
+    background-color: #3b6978; /* Darker background on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+}
+
+/* Admin Panel Button styling */
+.btn {
+    background-color: #1e3d59;
+    color: rgb(234, 230, 230);
+    border: none;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #3b6978;
+}
+
+/* Footer styling */
+footer {
+    background-color: #1e3d59;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .device {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+/* Modal styles */
+/* Modal (initially hidden) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+.reviews button {
+    margin-top: 10px;
+    border-radius: 20px;
+}
+
+.review {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+}
+
+/* Modal content 
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+Close button 
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.reviews textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+
+}*/
+/* Updated modal styles */
+.modal-content {
+    background-color: #ffffff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 60%;
+    max-width: 700px;
+    animation: slideDown 0.5s ease-out;
+}
+Close button 
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Close button styling 
+.close-btn {
+    color: #666;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+/* Modal header */
+#modal-title {
+    font-size: 1.8rem;
+    color: #1e3d59;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+#device-details {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Device Image Styling */
+#device-image {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Device Name Styling */
+#device-name {
+    margin-top: 20px;
+    font-size: 2rem;
+    color: #1e3d59;
+    text-align: center;
+}
+
+/* Specifications Section */
+#device-specs {
+    margin: 20px 0;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    color: #333;
+    text-align: justify;
+}
+
+/* Reviews Section */
+#device-reviews {
+    margin-top: 30px;
+}
+
+#reviews-container {
+    margin-top: 10px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Review Textbox */
+#review-text {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Admin panel modal */
+#admin-panel .modal-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 80%;             /* Limits width to 80% of the screen */
+    max-width: 600px;       /* Prevents the modal from getting too wide */
+    max-height: 80vh;       /* Limits height to 80% of the viewport */
+    overflow-y: auto;       /* Adds vertical scroll if content exceeds height */
+    margin: 5% auto;
+    position: relative;
+}
+/*#admin-device-list .admin-device {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+#admin-device-list button {
+    margin: 5px;
+}
+
+#device-form input, #device-form textarea {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+}*/
+
+#device-form button {
+    background-color: #1e3d59;
+    color: white;
+    cursor: pointer;
+}
+
+#device-form button:hover {
+    background-color: #3b6978;
+}
+/* Form and buttons inside the modal */
+#device-form, #admin-device-list {
+    margin: 0 auto;
+    width: 100%;           /* Ensures the form fits within the modal */
+    padding: 10px 0;
+}
+
+#device-form input, #device-form textarea {
+    width: calc(100% - 20px); /* Keeps inputs inside the modal with padding */
+    margin: 10px auto;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+#admin-device-list .admin-device {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Close button styling */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #666;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 90%;         /* Adjusts modal width for smaller screens */
+        max-width: 90%;
+    }
+}
+/* General styling for the about section */
+#about {
+    display: block; /* Ensure the section is visible */
+    padding: 20px; /* Add padding for spacing */
+    background-color: #f4f4f9; /* Light background color */
+    color: #333; /* Text color */
+    border-radius: 10px; /* Optional rounded corners */
+    margin: 20px auto; /* Center the section */
+    max-width: 800px; /* Limit the width for readability */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+/* Heading styles for the about section */
+#about h2 {
+    color: #1e3d59; /* Match the theme color */
+    font-size: 2rem;
+    text-align: center; /* Center the heading */
+    margin-bottom: 15px; /* Space below the heading */
+}
+
+#about h3 {
+    color: #3b6978; /* Slightly different shade for subheadings */
+    font-size: 1.5rem;
+    margin-top: 20px; /* Space above the subheading */
+    margin-bottom: 10px; /* Space below the subheading */
+}
+
+/* Paragraph styles for better readability */
+#about p {
+    line-height: 1.6; /* Increase line spacing for readability */
+    text-align: center; /* Center-align the text */
+    font-size: 1rem; /* Standard font size */
+    margin-bottom: 10px; /* Space between paragraphs */
+}
+/* Styling for the Feature Highlights Section */
+.feature-highlights {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: none ; /* Light background */
+}
+
+.feature-highlights h2 {
+    font-size: 2.5rem;
+    color: #f4f9fe;
+    margin-bottom: 30px;
+}
+
+.category-cards {
+    display: flex;
+    justify-content: space-around; /* Spread out the cards */
+    flex-wrap: wrap; /* Allows the cards to wrap to the next row on small screens */
+    gap: 20px;
+}
+
+.category-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 250px; /* Fixed width for each card */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.category-card img {
+    width: 80%; /* Make the image fill the card width */
+    height: 150px; /* Set a fixed height for the images */
+    object-fit: cover; /* Ensure images maintain their aspect ratio */
+    border-radius: 8px;
+}
+
+.category-card h3 {
+    font-size: 1.8rem;
+    color: #1e3d59;
+    margin-top: 10px;
+}
+
+.category-card p {
+    font-size: 1rem;
+    color: #555;
+    margin: 10px 0;
+}
+
+.view-all-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #1e3d59;
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.view-all-btn:hover {
+    background-color: #3b6978; /* Darker shade on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .category-cards {
+        justify-content: center; /* Center the cards on smaller screens */
+    }
+
+    .category-card {
+        width: 100%; /* Full width for cards on smaller screens */
+        max-width: 300px;
+    }
+}
+/* Star Rating */
+#star-rating {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.stars .fa-star {
+    font-size: 1.5rem;
+    color: #ccc; /* Default star color */
+    cursor: pointer;
+}
+
+.stars .fa-star.selected {
+    color: #FFD700; /* Gold color for selected stars */
+}
+
+.stars .fa-star:hover {
+    color: #FFD700;
+}
