@@ -238,6 +238,10 @@ $(document).ready(function() {
         hamburger.on('click', function() {
             sidebarMenu.toggleClass('active');
         });
+        // Close the sidebar when a navigation link is clicked
+$('.nav-link').on('click', function() {
+    sidebarMenu.removeClass('active');
+});
     
         // Initial device rendering
         renderDevices(currentPage);
