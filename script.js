@@ -116,27 +116,51 @@ $(document).ready(function() {
         mainContent.hide();
     
         // Handle navigation
-        $('.nav-link').on('click', function(event) {
-            event.preventDefault();
-            const targetId = $(this).data('target');
-    
-            homepage.hide();
-            mainContent.show();
-    
+        $('.nav-link').on('click', function (event) {
+            event.preventDefault(); // Prevent default link behavior
+        
+            const targetId = $(this).data('target'); // Get the target section ID
+        
+            // Update the browser's history stack
+            history.pushState({ section: targetId }, '', `#${targetId}`);
+        
+            // Show or hide relevant sections
+            $('#homepage').hide();
+            $('#main-content').show();
+        
             if (targetId === 'devices') {
-                searchSortOptions.show(); // Show search and sort options when going to 'All Devices'
-                renderDevices(currentPage); // Initially render all devices
+                $('#search-sort-options').show(); // Show search and sort options
+                renderDevices(currentPage); // Render all devices
             } else {
-                searchSortOptions.hide(); // Hide search and sort options for other sections
+                $('#search-sort-options').hide(); // Hide search and sort options for other sections
             }
-    
+        
             $('main > section').hide(); // Hide all sections
-            $('#' + targetId).show(); // Show the selected section
-    
+            $(`#${targetId}`).show(); // Show the selected section
+        
             // Close the sidebar when a navigation link is clicked
             $('#sidebar-menu').removeClass('active');
         });
-    
+        
+        // Handle back/forward navigation
+        window.onpopstate = function (event) {
+            const section = event.state?.section || 'homepage'; // Default to homepage if no state exists
+        
+            // Show or hide relevant sections
+            $('#homepage').toggle(section === 'homepage');
+            $('#main-content').toggle(section !== 'homepage');
+        
+            if (section === 'devices') {
+                $('#search-sort-options').show(); // Show search and sort options
+                renderDevices(currentPage); // Render all devices
+            } else {
+                $('#search-sort-options').hide(); // Hide search and sort options for other sections
+            }
+        
+            $('main > section').hide(); // Hide all sections
+            $(`#${section}`).show(); // Show the selected section
+        };
+        
         // Sorting functionality
         $('#sort-rating').on('click', function() {
             devices.sort((a, b) => b.rating - a.rating); // Sort by rating in descending order
