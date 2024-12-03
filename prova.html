@@ -65,7 +65,7 @@
         <nav id="sidebar-menu">
             <ul>
                 <li><a href="#devices.html" class="nav-link" data-target="devices">All Devices</a></li>
-                <li><a href="#about.html" class="nav-link" data-target="about">About Us</a></li>
+                <li><a href="#about.html" class="nav-link" data-target="best-websites">Where to Buy</a></li>
                 <li><a href="#contact.html" class="nav-link" data-target="contact">Contact Us</a></li>
                
                 <li><a href="#admin.html" class="nav-link" data-target="admin">Admin Panel</a></li>
@@ -74,18 +74,6 @@
 
             </ul>
         </nav>
-        
-        <!-- Search and sorting 
-        <div class="search-container">
-            <input type="text" id="searchBar" placeholder="Search for devices...">
-            <i class="fa fa-search search-icon"></i>
-        </div>
-        
-        <div id="sort-options">
-            <button id="sort-rating">Sort by Rating</button>
-            <button id="sort-release">Sort by Release Date</button>
-            <button id="sort-category">Sort by Category</button>
-        </div>-->
     </header>
     <!-- Search and Sorting Options (visible in 'All Devices' section) -->
 <div id="search-sort-options" style="display: none;">
@@ -106,16 +94,110 @@
             <div id="device-container"></div>
             <div id="pagination"></div>
         </section>
-
-    
-        <section id="about">
-            <h2>Welcome to Tech Devices Review</h2>
-            <p>We aim to provide honest and detailed reviews of the latest tech gadgets, from smartphones to smartwatches and everything in between.</p>
-            <h3>Our Team</h3>
-            <p>Dedicated tech enthusiasts bringing you the best insights and tips for choosing the right device.</p>
+        <section id="best-websites">
+            <h2>Best & Safest Websites to Shop Tech Devices</h2>
+            <p>Looking for the best and most reliable websites to buy your next tech device? Here are some of the top choices known for their secure payment options, customer support, and quality products.</p>
+        
+            <div class="website-list">
+                <!-- Website 1 -->
+                <div class="website-item">
+                    <h3>Amazon</h3>
+                    <img src="images/Amazon.png" alt="Amazon Logo" class="website-img">
+                    <p><strong>Rating:</strong> 4.8/5</p>
+                    <p>Amazon offers a wide selection of devices at competitive prices with secure payment options and fast delivery services. Their customer service is renowned for handling issues efficiently.</p>
+                    <a href="https://www.amazon.com" class="btn" target="_blank">Visit Amazon</a>
+                </div>
+        
+                <!-- Website 2 -->
+                <div class="website-item">
+                    <h3>Best Buy</h3>
+                    <img src="images/best-buy-logo.png" alt="Best Buy Logo" class="website-img">
+                    <p><strong>Rating:</strong> 4.7/5</p>
+                    <p>Best Buy is a trusted retailer for all kinds of tech products, known for its extensive product selection and warranty offerings. It's a great place to find the latest gadgets with safe transactions.</p>
+                    <a href="https://www.bestbuy.com" class="btn" target="_blank">Visit Best Buy</a>
+                </div>
+        
+                <!-- Website 3 -->
+                <div class="website-item">
+                    <h3>Newegg</h3>
+                    <img src="images/newegg-logo.png" alt="Newegg Logo" class="website-img">
+                    <p><strong>Rating:</strong> 4.6/5</p>
+                    <p>Newegg is known for its unbeatable prices and a great variety of tech gadgets. With secure payment systems and customer-focused services, it's a favorite for many tech shoppers.</p>
+                    <a href="https://www.newegg.com" class="btn" target="_blank">Visit Newegg</a>
+                </div>
+        
+                <!-- Website 4 -->
+                <div class="website-item">
+                    <h3>B&H Photo Video</h3>
+                    <img src="images/bh-logo.png" alt="B&H Logo" class="website-img">
+                    <p><strong>Rating:</strong> 4.9/5</p>
+                    <p>B&H is renowned for its high-end photography equipment, but it also offers great tech gadgets. It's a trusted website with excellent customer service and secure shopping options.</p>
+                    <a href="https://www.bhphotovideo.com" class="btn" target="_blank">Visit B&H</a>
+                </div>
+        
+                <!-- Website 5 -->
+                <div class="website-item">
+                    <h3>Apple Store</h3>
+                    <img src="images/apple-logo.png" alt="Apple Store Logo" class="website-img">
+                    <p><strong>Rating:</strong> 5/5</p>
+                    <p>The official Apple Store is the best place to purchase Apple devices directly from the source. With safe payment methods and quality customer service, it's a reliable option.</p>
+                    <a href="https://www.apple.com" class="btn" target="_blank">Visit Apple Store</a>
+                </div>
+            </div>
         </section>
+        
     
-        <section id="admin">
+        <section id="contact">
+            <!-- About Us Section -->
+            <h2>Welcome to <span style="font-style: italic;">Tech Devices Review</span></h2>
+            <p><strong>We aim to provide honest and detailed reviews</strong> of the latest tech gadgets, from smartphones to smartwatches and everything in between.</p>
+        
+            <h3><u><strong> Our Team</u></strong></h3>
+            <p>Dedicated tech enthusiasts bringing you the <strong><em>best insights</em></strong> and tips for choosing the right device.</p>
+        
+           <!-- <h3>Why Choose Us?</h3>
+            <ul style="list-style-type: disc; margin: 15px 0 15px 20px;">
+                <li><strong>Comprehensive Reviews</strong> on the latest technology.</li>
+                <li><strong>Unbiased </strong>opinions from <em>industry experts</em>.</li>
+                <li><strong>Up-to-date</strong> information on <u>cutting-edge gadgets</u>.</li>
+            </ul>-->
+        
+            <!-- Contact Us Section -->
+            <div class="contact-header">
+                <h2>Contact Us</h2>
+                <p>Have questions or need help? </p>
+                <p>Reach out to us, and we'll get back to you as soon as possible!</p>
+            </div>
+        
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Our Office</h3>
+                    <address>
+                        Tech Devices Review<br>
+                        123 Tech Street<br>
+                        Prishtina, Kosova<br>
+                        <span class="highlight"> Email: <u><a href="mailto:info@techreview.com">info@techreview.com</a></u> </span>
+                    </address>
+                </div>
+        
+                <div class="contact-form-container">
+                    <form id="contact-form">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" placeholder="Write your message here..." rows="4" required></textarea>
+                        
+                        <button type="submit" class="btn">Send</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+           <section id="admin">
             <div id="admin-panel" class="modal-content">
                 <h2>Device Management Panel</h2>
                 <form id="device-form">
@@ -131,35 +213,6 @@
             </div>
         </section>
     
-        <section id="contact">
-            <div class="contact-header">
-                <h2>Contact Us</h2>
-                <p>Have questions or need help? Reach out to us, and we'll get back to you as soon as possible!</p>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Our Office</h3>
-                    <address>
-                        Tech Devices Review<br>
-                        123 Tech Street<br>
-                        Budapest, Hungary<br>
-                        Email: <a href="mailto:info@techreview.com">info@techreview.com</a>
-                    </address>
-                </div>
-                <div class="contact-form-container">
-                    <form id="contact-form">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" placeholder="Your Name" required>
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" placeholder="Your Email" required>
-                        <label for="message">Message:</label>
-                        <textarea id="message" name="message" placeholder="Write your message here..." rows="4" required></textarea>
-                        <button type="submit" class="btn">Send</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-        
         
     </main>
 <div id="device-modal" class="modal">
@@ -188,7 +241,7 @@
 </div>
 
     <footer>
-        <p><i>&copy; 2024 Tech Devices Review</i></p>
+        <p><i>&copy; 2024 Tech Devices Review | <a href="https://techreviews.com" target="_blank" rel="noopener noreferrer">Visit Our Blog</i></p>
     </footer>
 </body>
 </html>

@@ -16,6 +16,12 @@
     gap: 20px;
     position: relative;
 }
+.highlight {
+    background-color: rgb(160, 190, 237);
+    font-weight: bold;
+    padding: 2px;
+}
+
 /* Overlay for better contrast over background */
 .homepage::before {
     content: '';
@@ -158,13 +164,6 @@ body {
        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         text-align: center;
         position: relative;
-
-        /* Add the logo as a background 
-        background-image: url('images/logo1.png'); /* Update with your logo's path 
-        background-size: contain;  Adjust the size of the logo 
-        background-repeat: no-repeat;
-        background-position: center; /* Center the logo 
-        opacity: 0.9; /* Adjust opacity to make the logo faint */
     }
 
     h1 {
@@ -174,7 +173,6 @@ body {
         z-index: 4; /* Ensures title text appears above the background logo */
         pointer-events: none;
     }
-    /* Make sure the search-sort options are hidden by default and visible in the devices section */
 /* Styling for the #search-sort-options container */
 #search-sort-options {
     display: none; /* Hide by default */
@@ -279,18 +277,6 @@ body {
     transition: transform 0.3s, box-shadow 0.3s;
     box-sizing: border-box; /* Ensures padding is included in width */
 }
-
-
-/*.device {
-    border: 1px solid #ddd;
-    border-radius: 15px;
-    margin: 5px;
-    padding: 10px;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-*/
 .device:hover {
     transform: translateY(-10px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
@@ -386,40 +372,6 @@ footer {
     border: 1px solid #ddd;
     border-radius: 50px;
 }
-
-/* Modal content 
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-Close button 
-.close-btn {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close-btn:hover,
-.close-btn:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-.reviews textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-}
-
-
-}*/
-/* Updated modal styles */
 .modal-content {
     background-color: #ffffff;
     margin: 5% auto;
@@ -430,42 +382,6 @@ Close button
     max-width: 700px;
     animation: slideDown 0.5s ease-out;
 }
-Close button 
-.close-btn {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close-btn:hover,
-.close-btn:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Close button styling 
-.close-btn {
-    color: #666;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 15px;
-}
-
-.close-btn:hover {
-    color: #333;
-}
-
-/* Modal header */
 #modal-title {
     font-size: 1.8rem;
     color: #1e3d59;
@@ -549,22 +465,6 @@ Close button
     margin: 5% auto;
     position: relative;
 }
-/*#admin-device-list .admin-device {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-}
-
-#admin-device-list button {
-    margin: 5px;
-}
-
-#device-form input, #device-form textarea {
-    display: block;
-    width: 100%;
-    margin: 5px 0;
-    padding: 10px;
-}*/
-
 #device-form button {
     background-color: #1e3d59;
     color: white;
@@ -609,40 +509,6 @@ Close button
         width: 90%;         /* Adjusts modal width for smaller screens */
         max-width: 90%;
     }
-}
-/* General styling for the about section */
-#about {
-    display: block; /* Ensure the section is visible */
-    padding: 20px; /* Add padding for spacing */
-    background-color: #f4f4f9; /* Light background color */
-    color: #333; /* Text color */
-    border-radius: 10px; /* Optional rounded corners */
-    margin: 20px auto; /* Center the section */
-    max-width: 800px; /* Limit the width for readability */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-}
-
-/* Heading styles for the about section */
-#about h2 {
-    color: #1e3d59; /* Match the theme color */
-    font-size: 2rem;
-    text-align: center; /* Center the heading */
-    margin-bottom: 15px; /* Space below the heading */
-}
-
-#about h3 {
-    color: #3b6978; /* Slightly different shade for subheadings */
-    font-size: 1.5rem;
-    margin-top: 20px; /* Space above the subheading */
-    margin-bottom: 10px; /* Space below the subheading */
-}
-
-/* Paragraph styles for better readability */
-#about p {
-    line-height: 1.6; /* Increase line spacing for readability */
-    text-align: center; /* Center-align the text */
-    font-size: 1rem; /* Standard font size */
-    margin-bottom: 10px; /* Space between paragraphs */
 }
 /* Styling for the Feature Highlights Section */
 .feature-highlights {
@@ -889,6 +755,67 @@ Close button
 #contact address a:hover {
     text-decoration: underline; /* Add underline on hover */
 }
-h3{
-    text-align: center; 
+#best-websites {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+#best-websites h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+}
+
+.website-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.website-item {
+    background-color: white;
+    width: 48%;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.website-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.website-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.website-item h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-top: 10px;
+}
+
+.website-item p {
+    font-size: 1rem;
+    color: #555;
+    margin: 10px 0;
+}
+
+.website-item .btn {
+    background-color: #1e3d59;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.website-item .btn:hover {
+    background-color: #3b6978;
 }
