@@ -8,9 +8,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script.js"></script>
+    <link href="prova.html">
 </head>
 <body>
     <header>
+            
         <h1>Device Details</h1>
          <!-- Hamburger menu icon -->
          <div class="hamburger">
@@ -22,10 +24,10 @@
         <!-- Sidebar menu -->
         <nav id="sidebar-menu">
             <ul>
-                <li><a href="#devices.html" class="nav-link" data-target="devices">All Devices</a></li>
-                <li><a href="#about.html" class="nav-link" data-target="about">About Us</a></li>
-                <li><a href="#contact.html" class="nav-link" data-target="contact">Contact Us</a></li>
-               
+            
+                <li><a href="#device-modal" class="nav-link" data-target="devices">All Devices</a></li>
+                <li><a href="#devices.html" class="nav-link" data-target="devices">Where to Buy</a></li>
+                <li><a href="#admin-panel" class="nav-link" onclick="openAdminPanel(event)">Contact Us</a></li>
                 <li><a href="#admin.html" class="nav-link" data-target="admin">Admin Panel</a></li>
 
 
@@ -37,13 +39,26 @@
         <section id="device-details">
             <h2 id="device-name">Device Name</h2>
             <img id="device-image" src="" alt="Device Image">
-            <p id="device-specs">Specifications will be displayed here.</p>
+            <div id="device-details">
+                <h2 id="device-name"></h2>
+                <table id="device-specifications">
+                    <thead>
+                        <tr>
+                            <th>Specification</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows populated dynamically -->
+                    </tbody>
+                </table>
+            </div>            
             <div id="device-reviews">
                 <h3>Reviews</h3>
                 <div id="reviews-container">
                     <p>No reviews yet. Be the first to review!</p>
                 </div>
-                <textarea id="review-text" placeholder="Add a review..." rows="4"></textarea>
+                <form id="review-form" onsubmit="submitModalReview(); return false;">
                 <div id="star-rating" class="stars">
                     <!-- Empty stars for the rating -->
                     <span class="fa fa-star" data-value="1"></span>
@@ -52,8 +67,13 @@
                     <span class="fa fa-star" data-value="4"></span>
                     <span class="fa fa-star" data-value="5"></span>
                 </div>
-                <button onclick="submitReview()">Submit Review</button>
-            </div>
+                <div class="form-group">
+                    <label for="modal-review-text">Add a review:</label>
+                    <textarea id="modal-review-text" name="review" placeholder="Write your review here..." rows="4" required></textarea>
+                </div>
+            
+                <button type="submit" class="btn">Submit Review</button>
+            </div></form>
         </section>
     </main>
     <footer>
@@ -131,7 +151,185 @@
         alert('An error occurred while submitting your review. Please try again.');
     }
 }
+const urlParams = new URLSearchParams(window.location.search);
+const deviceIndex = urlParams.get('deviceIndex');
+// Example device data
+const devices = JSON.parse(localStorage.getItem('devices')) || [
+    {name:"Smartphone, Samsung", category: "Smartphone", releaseDate: "2024-01-15", rating: 4.5, imageUrl:  "images/device1.jpg", specs: "8GB RAM, 128GB Storage, 6.5-inch Display"
+            , reviews: []},
+            {name: "Laptop, Lenovo", category: "Laptop", releaseDate: "2023-11-10", rating: 4.7, imageUrl: "images/device2.jpg", specs: "16GB RAM, 512GB SSD, 15.6-inch Display", reviews: []},
+            {name: "Tablet, Apple", category: "Tablet", releaseDate: "2023-09-05", rating: 4.8, imageUrl: "images/device3.jpg", specs: "4GB RAM, 64GB Storage, 10.2-inch Retina Display", reviews: []},
+            {name: "Smartwatch, Garmin", category: "Smartwatch", releaseDate: "2024-02-20", rating: 4.6, imageUrl: "images/device4.jpg", specs: "Heart Rate Monitor, GPS, 1.3-inch Display", reviews: []},
+            {name: "Headphones, Sony", category: "Audio", releaseDate: "2023-10-12", rating: 4.7, imageUrl: "images/device5.jpg", specs: "Noise Cancellation, 30-hour Battery Life", reviews: []},
+            {name: "Camera, Canon", category: "Camera", releaseDate: "2023-08-30", rating: 4.5, imageUrl: "images/device6.jpg", specs: "24.1 MP, 1080p Full HD, Wi-Fi Enabled", reviews: []},
+            {name: "iPhone 16, Apple", category: "Smartphone", releaseDate: "2024-09-10", rating: 4.9, imageUrl: "images/device7.jpg", specs: "12GB RAM, 256GB Storage, 6.1-inch Display", reviews: []},
+            {name: "Laptop, HP", category: "Laptop", releaseDate: "2023-12-01", rating: 4.4, imageUrl: "images/device8.jpg", specs: "8GB RAM, 256GB SSD, 14-inch Display", reviews: []},
+            {name: "Smart TV, LG", category: "Television", releaseDate: "2024-04-15", rating: 4.3, imageUrl: "images/device9.jpg", specs: "4K UHD, 55-inch, Smart Features", reviews: []},
+            {name: "Tablet, Samsung", category: "Tablet", releaseDate: "2023-06-22", rating: 4.2, imageUrl: "images/device10.jpg", specs: "6GB RAM, 128GB Storage, 11-inch Display", reviews: []},
+            {name: "Camera, Nikon", category: "Camera", releaseDate: "2023-07-14", rating: 4.6, imageUrl: "images/device11.jpg", specs: "20.9 MP, 4K UHD, Wi-Fi & Bluetooth", reviews: []},
+            {name: "Headphones, Bose", category: "Audio", releaseDate: "2023-05-03", rating: 4.8, imageUrl: "images/device12.jpg", specs: "Noise Cancelling, 20-hour Battery Life", reviews: []},
+            {name: "Applewatch, Apple", category: "Smartwatch", releaseDate: "2023-12-25", rating: 4.7, imageUrl: "images/device13.jpg", specs: "ECG, GPS, 1.7-inch Retina Display", reviews: []},
+            {name: "Laptop, Dell", category: "Laptop", releaseDate: "2023-08-10", rating: 4.5, imageUrl: "images/device14.jpg", specs: "16GB RAM, 1TB SSD, 15.6-inch Display", reviews: []},
+            {name: "Smartphone, Xiaomi", category: "Smartphone", releaseDate: "2024-02-05", rating: 4.4, imageUrl: "images/device15.jpg", specs: "8GB RAM, 256GB Storage, 6.7-inch Display", reviews: []},
+            {name: "Smart TV, Sony", category: "Television", releaseDate: "2024-01-25", rating: 4.6, imageUrl: "images/device16.jpg", specs: "4K HDR, 65-inch, Smart Features", reviews: []},
+            {name: "Tablet, Microsoft", category: "Tablet", releaseDate: "2023-09-15", rating: 4.5, imageUrl: "images/device17.jpg", specs: "8GB RAM, 128GB Storage, 12.3-inch Display", reviews: []},
+            {name: "Headphones, JBL", category: "Audio", releaseDate: "2023-06-29", rating: 4.3, imageUrl: "images/device18.jpg", specs: "Bluetooth, 25-hour Battery Life", reviews: []},
+            {name: "Smartwatch, Fitbit", category: "Smartwatch", releaseDate: "2023-10-01", rating: 4.2, imageUrl: "images/device19.jpg", specs: "Heart Rate, GPS, 1.2-inch Display", reviews: []},
+            {name: "Camera, Sony", category: "Camera", releaseDate: "2023-11-05", rating: 4.9, imageUrl: "images/device20.jpg", specs: "61 MP, 8K Video, Wi-Fi & Bluetooth", reviews: []},
+            {name: "Smartphone, OnePlus", category: "Smartphone", releaseDate: "2024-05-02", rating: 4.3, imageUrl: "images/device21.jpg", specs: "8GB RAM, 128GB Storage, 6.55-inch Display", reviews: []},
+            {name: "Laptop, Asus", category: "Laptop", releaseDate: "2023-07-22", rating: 4.7, imageUrl: "images/device22.jpg", specs: "32GB RAM, 1TB SSD, 17-inch Display", reviews: []},
+            {name: "Tablet, Lenovo", category: "Tablet", releaseDate: "2024-03-18", rating: 4.1, imageUrl: "images/device23.jpg", specs: "4GB RAM, 64GB Storage, 10-inch Display", reviews: []},
+            {name: "Headphones, Sennheiser", category: "Audio", releaseDate: "2023-04-28", rating: 4.5, imageUrl: "images/device24.jpg", specs: "Wireless, Noise Cancellation", reviews: []},
+            {name: "Smartwatch, Samsung", category: "Smartwatch", releaseDate: "2024-03-22", rating: 4.6, imageUrl: "images/device25.jpg", specs: "Heart Rate Monitor, GPS, 1.4-inch Display", reviews: []},
+            {name: "Camera, Panasonic", category: "Camera", releaseDate: "2023-03-15", rating: 4.2, imageUrl: "images/device26.jpg", specs: "20.3 MP, 4K Video, Image Stabilization", reviews: []},
+            {name: "Smartphone, Google", category: "Smartphone", releaseDate: "2024-06-12", rating: 4.5, imageUrl: "images/device27.jpg", specs: "12GB RAM, 256GB Storage, 6.3-inch Display", reviews: []},
+            {name: "Laptop, Acer", category: "Laptop", releaseDate: "2023-09-18", rating: 4.4, imageUrl: "images/device28.jpg", specs: "16GB RAM, 1TB HDD, 15-inch Display", reviews: []},
+            {name: "Smart TV, Samsung", category: "Television", releaseDate: "2023-11-08", rating: 4.8, imageUrl: "images/device29.jpg", specs: "8K QLED, 75-inch, Smart Features", reviews: []},
+            {name: "Tablet, Huawei", category: "Tablet", releaseDate: "2024-02-14", rating: 4.3, imageUrl: "images/device30.jpg", specs: "6GB RAM, 128GB Storage, 10.4-inch Display", reviews: []},];
 
+// Get the specific device based on the index
+const device = devices[deviceIndex];
+
+if (device) {
+    // Populate the device details page
+    document.getElementById("device-name").textContent = device.name;
+    document.getElementById("device-image").src = device.imageUrl;
+
+    // Populate the table with the specific device's details
+    const specTableBody = document.querySelector("#device-specifications tbody");
+    specTableBody.innerHTML = `
+        <tr>
+            <td>Category</td>
+            <td>${device.category}</td>
+        </tr>
+        <tr>
+            <td>Release Date</td>
+            <td>${device.releaseDate}</td>
+        </tr>
+        <tr>
+            <td>Rating</td>
+            <td>${device.rating} / 5</td>
+        </tr>
+        <tr>
+            <td>Specifications</td>
+            <td>${device.specs}</td>
+        </tr>
+    `;
+} else {
+    // Handle cases where the deviceIndex is invalid
+    document.getElementById("device-details").innerHTML = "<p>Device not found!</p>";
+}
     </script>
+    <style>#review-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px;
+    }
+    
+    .rating-input {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .rating-input label {
+        font-weight: bold;
+        color: #333;
+    }
+    
+    #star-rating {
+        display: flex;
+        gap: 5px;
+    }
+    
+    .stars .fa-star {
+        font-size: 1.5rem;
+        color: #ccc; /* Default color */
+        cursor: pointer;
+    }
+    
+    .stars .fa-star.selected {
+        color: #FFD700; /* Gold for selected stars */
+    }
+    
+    .stars .fa-star:hover {
+        color: #FFD700; /* Highlight on hover */
+    }
+    
+    textarea {
+        width: 100%;
+        border-radius: 5px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        resize: none; /* Disable manual resizing */
+    }
+    
+    textarea:focus {
+        border-color: #1e3d59;
+        box-shadow: 0 0 5px rgba(30, 61, 89, 0.5);
+    }
+    
+    button.btn {
+        align-self: flex-start; /* Align the button to the start */
+        background-color: #1e3d59;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    button.btn:hover {
+        background-color: #3b6978;
+    }
+    #device-specifications {
+    width: 100%;
+    border-collapse: collapse;  /* Ensures the borders are combined */
+    margin: 20px 0;
+    font-size: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#device-specifications th, #device-specifications td {
+    padding: 12px 20px; /* Adjust padding to provide space within cells */
+    border: 1px solid #ddd; /* Border for the table cells */
+    text-align: left;
+}
+
+#device-specifications th {
+    background-color: #1e3d59;
+    color: white;
+    font-weight: bold;
+}
+
+#device-specifications td {
+    background-color: #f9f9f9;  /* Light gray background for table cells */
+}
+
+#device-specifications tr:nth-child(even) td {
+    background-color: #f4f4f9; /* Alter background color for even rows */
+}
+
+#device-specifications tr:hover {
+    background-color: #e1e1e1; /* Highlight row on hover */
+}
+
+#device-specifications tfoot {
+    font-style: italic;
+    text-align: center;
+    background-color: #f1f1f1;  /* Background for footer */
+    color: #333;
+    padding: 10px;
+}
+
+#device-specifications td:nth-child(2) {
+    background-color: #e6f7ff;  /* Blue background for details column */
+}
+
+    </style>
 </body>
 </html>

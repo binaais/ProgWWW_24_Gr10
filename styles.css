@@ -4,10 +4,11 @@
     text-align: center;
     padding: 50px 20px;
     height: 70vh; /* Full viewport height */
-    background: url('images/logo3.png') no-repeat center center/cover; /* Hero section with background */
+    background-image: url('images/logo3.png') no-repeat center center/cover; /* Hero section with background */
     background-size: contain; /* Ensures the image covers the whole container without stretching */
     background-position: center center; /* Centers the background image */
     background-attachment: fixed; /* Optional: Makes the background image fixed during scrolling */
+    background-repeat: no-repeat;
     color: white; /* White text on dark background */
     display: flex;
     flex-direction: column;
@@ -587,27 +588,6 @@ footer {
         max-width: 300px;
     }
 }
-/* Star Rating */
-#star-rating {
-    display: flex;
-    gap: 5px;
-    margin-top: 10px;
-}
-
-.stars .fa-star {
-    font-size: 1.5rem;
-    color: #ccc; /* Default star color */
-    cursor: pointer;
-}
-
-.stars .fa-star.selected {
-    color: #FFD700; /* Gold color for selected stars */
-}
-
-.stars .fa-star:hover {
-    color: #FFD700;
-}
-/* General styles for the contact section */
 #contact {
     padding: 50px 20px;
     background-color: #f4f4f9;
@@ -817,5 +797,197 @@ footer {
 }
 
 .website-item .btn:hover {
+    background-color: #3b6978;
+}
+#admin-login {
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#admin-login-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+#admin-login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#admin-login-form button {
+    background-color: #1e3d59;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#admin-login-form button:hover {
+    background-color: #3b6978;
+}
+fieldset {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+legend {
+    font-weight: bold;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 5px;
+    accent-color: #1e3d59; /* Modern browsers */
+}
+
+input[type="radio"]:hover,
+input[type="checkbox"]:hover {
+    cursor: pointer;
+}
+/* Styling the device management panel container */
+#admin-panel {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Panel title styling */
+#admin-panel h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #1e3d59;
+    margin-bottom: 20px;
+}
+
+/* Form layout and styling */
+#device-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#device-form input,
+#device-form textarea,
+#device-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#device-form input:focus,
+#device-form textarea:focus,
+#device-form select:focus {
+    border-color: #1e3d59;
+    box-shadow: 0 0 5px rgba(30, 61, 89, 0.5);
+    outline: none;
+}
+
+/* Fieldset and legend styling */
+fieldset {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+legend {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Checkbox and radio button styling */
+input[type="checkbox"],
+input[type="radio"] {
+    margin-right: 10px;
+    accent-color: #1e3d59;
+}
+
+label {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Submit button styling */
+#device-form button {
+    background-color: #1e3d59;
+    color: white;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#device-form button:hover {
+    background-color: #3b6978;
+}
+
+/* Admin device list styling */
+#admin-device-list {
+    margin-top: 20px;
+}
+
+.admin-device {
+    padding: 15px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-device h4 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.admin-device p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* Buttons for editing and deleting devices */
+.admin-device button {
+    background-color: #1e3d59;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.admin-device button:hover {
     background-color: #3b6978;
 }

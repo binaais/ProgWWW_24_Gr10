@@ -10,19 +10,44 @@
     <script src="script.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Available Devices</h1>
-    </header>
-
-        <main style="display: none;" id="main-content">
-            <section id="devices">
-                <h2>Available Devices</h2>
-                <div id="device-container"></div>
-                <div id="pagination"></div>
-            </section>
-        
-        
-    </main>
+    <body>
+        <div id="device-modal" class="modal">
+            <div class="modal-content">
+                <img id="modal-image" src="" alt="Device Image" style="display: none;">
+                <h2 id="modal-title">Device Name</h2>
+                <p id="modal-description">Device full specifications...</p>
+            </div>
+        </div>
+        <script>
+            // JavaScript to open and close the modal
+            function showDeviceModal(imageSrc, title, description) {
+                const modal = document.getElementById('device-modal');
+                const modalImage = document.getElementById('modal-image');
+                const modalTitle = document.getElementById('modal-title');
+                const modalDescription = document.getElementById('modal-description');
+    
+                // Set modal content
+                if (imageSrc) {
+                    modalImage.src = imageSrc;
+                    modalImage.style.display = 'block';
+                } else {
+                    modalImage.style.display = 'none';
+                }
+                modalTitle.textContent = title;
+                modalDescription.textContent = description;
+    
+                // Show modal
+                modal.style.display = 'block';
+            }
+    
+            // Close the modal when clicking outside the content
+            window.onclick = function (event) {
+                const modal = document.getElementById('device-modal');
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            };
+        </script>
     <footer>
         <p>&copy; 2024 Tech Devices Review</p>
     </footer>

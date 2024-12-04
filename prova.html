@@ -154,14 +154,6 @@
         
             <h3><u><strong> Our Team</u></strong></h3>
             <p>Dedicated tech enthusiasts bringing you the <strong><em>best insights</em></strong> and tips for choosing the right device.</p>
-        
-           <!-- <h3>Why Choose Us?</h3>
-            <ul style="list-style-type: disc; margin: 15px 0 15px 20px;">
-                <li><strong>Comprehensive Reviews</strong> on the latest technology.</li>
-                <li><strong>Unbiased </strong>opinions from <em>industry experts</em>.</li>
-                <li><strong>Up-to-date</strong> information on <u>cutting-edge gadgets</u>.</li>
-            </ul>-->
-        
             <!-- Contact Us Section -->
             <div class="contact-header">
                 <h2>Contact Us</h2>
@@ -197,8 +189,23 @@
             </div>
         </section>
         
-           <section id="admin">
-            <div id="admin-panel" class="modal-content">
+        <section id="admin">
+            <!-- Admin Login Form -->
+            <div id="admin-login" class="modal-content">
+                <h2>Admin Login</h2>
+                <form id="admin-login-form" onsubmit="adminLogin(event)">
+                    <label for="admin-username">Username:</label>
+                    <input type="text" id="admin-username" placeholder="Enter your username" required>
+                    
+                    <label for="admin-password">Password:</label>
+                    <input type="password" id="admin-password" placeholder="Enter your password" required>
+                    
+                    <button type="submit" class="btn">Login</button>
+                </form>
+            </div>
+        
+            <!-- Device Management Panel (Initially Hidden) -->
+            <div id="admin-panel" class="modal-content" style="display: none;">
                 <h2>Device Management Panel</h2>
                 <form id="device-form">
                     <input type="text" id="device-name" placeholder="Device Name" required>
@@ -207,38 +214,128 @@
                     <input type="number" step="0.1" id="device-rating" placeholder="Rating" min="0" max="5" required>
                     <input type="text" id="device-image-url" placeholder="Image URL">
                     <textarea id="device-specs" placeholder="Specifications" required></textarea>
-                    <button type="submit" class="btn">Save Device</button>
-                </form>
-                <div id="admin-device-list"></div>
-            </div>
-        </section>
-    
+                    
+                   <!-- Radio Buttons: Availability -->
+                   <fieldset>
+                    <legend>Availability</legend>
+                    <input type="radio" id="in-stock" name="availability" value="in-stock">
+                    <label for="in-stock">In Stock</label>
+                
+                    <input type="radio" id="out-of-stock" name="availability" value="out-of-stock">
+                    <label for="out-of-stock">Out of Stock</label>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Device Features</legend>
+                    <input type="checkbox" id="warranty" name="features" value="warranty">
+                    <label for="warranty">Includes Warranty</label>
+                
+                    <input type="checkbox" id="free-shipping" name="features" value="free-shipping">
+                    <label for="free-shipping">Free Shipping</label>
+                
+                    <input type="checkbox" id="discounted" name="features" value="discounted">
+                    <label for="discounted">Discounted</label>
+                </fieldset>
+                
+
+            <button type="submit" class="btn">Save Device</button>
+        </form>
+        <style>
+            /* Hide the default checkbox */
+input[type="checkbox"] {
+    display: none;
+}
+
+/* Create a custom checkbox */
+input[type="checkbox"] + label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+input[type="checkbox"] + label::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 2px solid #1e3d59;
+    border-radius: 3px;
+    background-color: white;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Checked state */
+input[type="checkbox"]:checked + label::before {
+    background-color: #1e3d59;
+    border-color: #1e3d59;
+}
+/* Hide the default radio button */
+input[type="radio"] {
+    display: none;
+}
+
+/* Create a custom radio button */
+input[type="radio"] + label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+input[type="radio"] + label::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 2px solid #1e3d59;
+    border-radius: 50%; /* Circle for radio button */
+    background-color: white;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Checked state */
+input[type="radio"]:checked + label::before {
+    background-color: #1e3d59;
+    border-color: #1e3d59;
+}
+
+        </style>
+                <script>
+            // Simple admin credentials (for demonstration purposes only)
+            const ADMIN_CREDENTIALS = {
+                username: "admin",
+                password: "password123"
+            };
+        
+            function adminLogin(event) {
+                event.preventDefault(); // Prevent form submission
+        
+                const username = document.getElementById("admin-username").value;
+                const password = document.getElementById("admin-password").value;
+        
+                // Check credentials
+                if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                    alert("Login successful!");
+                    
+                    // Hide login form and show admin panel
+                    document.getElementById("admin-login").style.display = "none";
+                    document.getElementById("admin-panel").style.display = "block";
+                } else {
+                    alert("Invalid username or password. Please try again.");
+                }
+            }
+        </script>
+        
+        
         
     </main>
 <div id="device-modal" class="modal">
     <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
         <img id="modal-image" src="" alt="Device Image" style="display: none;">
         <h2 id="modal-title">Device Name</h2>
         <p id="modal-description">Device full specifications...</p>
-<div id="modal-reviews"></div>
-
-<div class="rating-input">
-    <p>Rate this device:</p>
-    <div id="star-rating" class="stars">
-        <!-- Empty stars to represent rating -->
-        <span class="fa fa-star" data-value="1"></span>
-        <span class="fa fa-star" data-value="2"></span>
-        <span class="fa fa-star" data-value="3"></span>
-        <span class="fa fa-star" data-value="4"></span>
-        <span class="fa fa-star" data-value="5"></span>
     </div>
-</div>
-<textarea id="modal-review-text" placeholder="Add a review..." rows="4"></textarea>
-<button class="btn" onclick="submitModalReview()">Submit Review</button>
-
-    </div>
-</div>
 
     <footer>
         <p><i>&copy; 2024 Tech Devices Review | <a href="https://techreviews.com" target="_blank" rel="noopener noreferrer">Visit Our Blog</i></p>

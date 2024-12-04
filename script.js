@@ -32,7 +32,7 @@ $(document).ready(function() {
             {name: "Smart TV, Samsung", category: "Television", releaseDate: "2023-11-08", rating: 4.8, imageUrl: "images/device29.jpg", specs: "8K QLED, 75-inch, Smart Features", reviews: []},
             {name: "Tablet, Huawei", category: "Tablet", releaseDate: "2024-02-14", rating: 4.3, imageUrl: "images/device30.jpg", specs: "6GB RAM, 128GB Storage, 10.4-inch Display", reviews: []},
         ];
-
+        localStorage.setItem("devices", JSON.stringify(devices));   
         const devicesPerPage = 10;
         let currentPage = 1;
          // Handle the "View All" button click
@@ -187,6 +187,7 @@ $(document).ready(function() {
        $(document).on('click', '.view-details-btn', function () {
     const deviceIndex = $(this).closest('.device').index();
     const deviceData = JSON.stringify(devices);
+    window.location.href = `device-details.html?deviceIndex=${deviceIndex}`;
 
     // Save device data to localStorage
     localStorage.setItem('devices', deviceData);
@@ -196,64 +197,86 @@ $(document).ready(function() {
 });
 
     
-        // Admin panel functionality remains intact
-        $('#device-form').on('submit', function(event) {
-            event.preventDefault();
-            const newDevice = {
-                name: $('#device-name').val(),
-                category: $('#device-category').val(),
-                releaseDate: $('#device-release-date').val(),
-                rating: parseFloat($('#device-rating').val()),
-                imageUrl: $('#device-image-url').val(),
-                specs: $('#device-specs').val(),
-                reviews: []  // Initialize an empty array for new devices
-            };
-    
-            const index = $('#device-form').data('editIndex');
-            if (index !== undefined) {
-                devices[index] = newDevice;  // Update existing device
-                $('#device-form').removeData('editIndex');
-            } else {
-                devices.push(newDevice);  // Add new device
-            }
-    
-            renderDevices();
-            loadAdminDevices();
-            $('#device-form')[0].reset();
-        });
-    
-        function loadAdminDevices() {
-            $('#admin-device-list').empty();
-            devices.forEach((device, index) => {
-                const deviceHtml = `
-                    <div class="admin-device" data-index="${index}">
-                        <h4>${device.name}</h4>
-                        <p>Category: ${device.category}</p>
-                        <button onclick="editDevice(${index})">Edit</button>
-                        <button onclick="deleteDevice(${index})">Delete</button>
-                    </div>
-                `;
-                $('#admin-device-list').append(deviceHtml);
-            });
-        }
-    
-        function editDevice(index) {
-            const device = devices[index];
-            $('#device-name').val(device.name);
-            $('#device-category').val(device.category);
-            $('#device-release-date').val(device.releaseDate);
-            $('#device-rating').val(device.rating);
-            $('#device-image-url').val(device.imageUrl);
-            $('#device-specs').val(device.specs);
-            $('#device-form').data('editIndex', index);  // Store index for updating
-        }
-    
-        function deleteDevice(index) {
-            devices.splice(index, 1);
-            loadAdminDevices();
-            renderDevices();
-        }
-    
+        // Admin panel functionality with added fields
+$('#device-form').on('submit', function (event) {
+    event.preventDefault();
+
+    // Capture form inputs, including new fields
+    const newDevice = {
+        name: $('#device-name').val(),
+        category: $('#device-category').val(),
+        releaseDate: $('#device-release-date').val(),
+        rating: parseFloat($('#device-rating').val()),
+        imageUrl: $('#device-image-url').val(),
+        specs: $('#device-specs').val(),
+        availability: $('input[name="availability"]:checked').val(), // Capture radio button value
+        features: $('input[name="features"]:checked')
+            .map(function () {
+                return this.value; // Capture checked checkbox values
+            })
+            .get(), // Convert to an array
+        reviews: [], // Initialize an empty array for new devices
+    };
+
+    const index = $('#device-form').data('editIndex');
+    if (index !== undefined) {
+        devices[index] = newDevice; // Update existing device
+        $('#device-form').removeData('editIndex');
+    } else {
+        devices.push(newDevice); // Add new device
+    }
+
+    renderDevices();
+    loadAdminDevices();
+    $('#device-form')[0].reset(); // Reset form fields
+});
+
+// Load admin devices into the UI
+function loadAdminDevices() {
+    $('#admin-device-list').empty();
+    devices.forEach((device, index) => {
+        const deviceHtml = `
+            <div class="admin-device" data-index="${index}">
+                <h4>${device.name}</h4>
+                <p>Category: ${device.category}</p>
+                <p>Availability: ${device.availability}</p>
+                <p>Features: ${device.features.join(', ')}</p>
+                <button onclick="editDevice(${index})">Edit</button>
+                <button onclick="deleteDevice(${index})">Delete</button>
+            </div>
+        `;
+        $('#admin-device-list').append(deviceHtml);
+    });
+}
+
+// Edit device functionality
+function editDevice(index) {
+    const device = devices[index];
+    $('#device-name').val(device.name);
+    $('#device-category').val(device.category);
+    $('#device-release-date').val(device.releaseDate);
+    $('#device-rating').val(device.rating);
+    $('#device-image-url').val(device.imageUrl);
+    $('#device-specs').val(device.specs);
+
+    // Set radio button value
+    $(`input[name="availability"][value="${device.availability}"]`).prop('checked', true);
+
+    // Set checkbox values
+    $('input[name="features"]').each(function () {
+        $(this).prop('checked', device.features.includes(this.value));
+    });
+
+    $('#device-form').data('editIndex', index); // Store index for updating
+}
+
+// Delete device functionality
+function deleteDevice(index) {
+    devices.splice(index, 1);
+    loadAdminDevices();
+    renderDevices();
+}
+
         // Hamburger menu toggle
         const sidebarMenu = $('#sidebar-menu');
         const hamburger = $('.hamburger');
