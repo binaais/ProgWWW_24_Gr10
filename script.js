@@ -183,17 +183,16 @@ $(document).ready(function() {
             homepage.show();
         });
     
-        // Function to open the device modal and show detailed information
-       $(document).on('click', '.view-details-btn', function () {
+     // Function to open the device modal and show detailed information
+$(document).on('click', '.view-details-btn', function () {
     const deviceIndex = $(this).closest('.device').index();
     const deviceData = JSON.stringify(devices);
-    window.location.href = `device-details.html?deviceIndex=${deviceIndex}`;
 
     // Save device data to localStorage
     localStorage.setItem('devices', deviceData);
 
-    // Redirect to the details page with the device index in the URL
-    window.location.href = `device-details.html?deviceIndex=${deviceIndex}`;
+    // Open the details page in a new tab with the device index in the URL
+    window.open(`device-details.html?deviceIndex=${deviceIndex}`, '_blank');
 });
 
     
@@ -313,6 +312,29 @@ $('.nav-link').on('click', function() {
             $('#star-rating').data('selected-rating', starValue); // Save the selected rating
         });
         
-           
+        const canvas = document.getElementById('smileyCanvas');
+const ctx = canvas.getContext('2d');
+
+// Draw face (circle)
+ctx.beginPath();
+ctx.arc(75, 75, 50, 0, Math.PI * 2); // Circle
+ctx.fillStyle = 'darkblue';
+ctx.fill();
+ctx.stroke();
+
+// Draw eyes
+ctx.beginPath();
+ctx.arc(55, 65, 5, 0, Math.PI * 2); // Left eye
+ctx.arc(95, 65, 5, 0, Math.PI * 2); // Right eye
+ctx.fillStyle = 'black';
+ctx.fill();
+
+// Draw mouth (arc)
+ctx.beginPath();
+ctx.arc(75, 75, 30, 0, Math.PI, false); // Mouth (smile)
+ctx.strokeStyle = 'black';
+ctx.lineWidth = 2;
+ctx.stroke();
+   
         
     });

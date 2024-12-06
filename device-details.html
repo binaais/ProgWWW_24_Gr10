@@ -9,6 +9,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script.js"></script>
     <link href="prova.html">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
 </head>
 <body>
     <header>
@@ -86,13 +88,18 @@
             const queryParams = new URLSearchParams(window.location.search);
             const deviceIndex = queryParams.get('deviceIndex');
             const devices = JSON.parse(localStorage.getItem('devices')); // Retrieve from storage
-
             if (devices && devices[deviceIndex]) {
-                const device = devices[deviceIndex];
-                $('#device-name').text(device.name);
-                $('#device-image').attr('src', device.imageUrl);
-                $('#device-specs').text(device.specs);
+        const device = devices[deviceIndex];
+        const nameElement = document.getElementById("device-name");
 
+        // Update name and image
+        nameElement.textContent = device.name;
+        $('#device-image').attr('src', device.imageUrl);
+        $('#device-specs').text(device.specs);
+
+        // Trigger animation for the name
+        gsap.fromTo(nameElement, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 1 });
+            
                 if (device.reviews && device.reviews.length > 0) {
                     const reviewsHtml = device.reviews.map(review => {
                         const stars = '⭐'.repeat(review.rating);
@@ -101,6 +108,7 @@
                     $('#reviews-container').html(reviewsHtml);
                 }
             }
+            
             $(document).on('click', '#star-rating .fa-star', function () {
     const starValue = $(this).data('value');
     $('#star-rating .fa-star').each(function () {
@@ -219,6 +227,26 @@ if (device) {
     // Handle cases where the deviceIndex is invalid
     document.getElementById("device-details").innerHTML = "<p>Device not found!</p>";
 }
+function animateDeviceName() {
+    const deviceNameElement = document.getElementById("device-name");
+    deviceNameElement.classList.remove("animate");
+    void deviceNameElement.offsetWidth; // Trigger reflow to restart animation
+    deviceNameElement.classList.add("animate");
+}
+
+// Example CSS for the animation
+const style = document.createElement("style");
+style.textContent = `
+    .animate {
+        animation: fadeIn 1s ease-in-out;
+    }
+`;
+document.head.appendChild(style);
+
+// Example: Trigger animation after setting the text
+document.getElementById("device-name").textContent = "New Device Name";
+animateDeviceName();
+
     </script>
     <style>#review-form {
         display: flex;
