@@ -36,15 +36,25 @@ $(document).ready(function() {
         const devicesPerPage = 10;
         let currentPage = 1;
          // Handle the "View All" button click
-    $('.view-all-btn').on('click', function(event) {
-        event.preventDefault(); // Prevent the default link behavior
-
-        const category = $(this).data('category'); // Get the category from the button's data-category attribute
-
-        // Now, filter or display devices based on the category (you need to update the #device-container)
-        showDevicesByCategory(category);
-    });
-
+         document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('mousemove', (event) => {
+                const rect = card.getBoundingClientRect();
+                const x = event.clientX - rect.left; // X position within the element
+                const y = event.clientY - rect.top;  // Y position within the element
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+        
+                const rotateX = ((y - centerY) / centerY) * 15; // Adjust 15 for intensity
+                const rotateY = ((x - centerX) / centerX) * -15;
+        
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+        
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = ''; // Reset when the mouse leaves
+            });
+        });
+        
     // Function to show devices by category
     function showDevicesByCategory(category) {
         // Filter devices based on category
