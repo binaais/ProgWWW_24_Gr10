@@ -4,7 +4,7 @@
     text-align: center;
     padding: 50px 20px;
     height: 70vh; /* Full viewport height */
-    background-image: url('images/logo3.png') no-repeat center center/cover; /* Hero section with background */
+    background: url('images/logo3.png') no-repeat center center fixed; /* Hero section with background */
     background-size: contain; /* Ensures the image covers the whole container without stretching */
     background-position: center center; /* Centers the background image */
     background-attachment: fixed; /* Optional: Makes the background image fixed during scrolling */
@@ -17,11 +17,7 @@
     gap: 20px;
     position: relative;
 }
-.highlight {
-    background-color: rgb(160, 190, 237);
-    font-weight: bold;
-    padding: 2px;
-}
+
 
 /* Overlay for better contrast over background */
 .homepage::before {
@@ -39,6 +35,7 @@
     font-family: 'Montserrat', sans-serif;
     z-index: 2; /* Make sure it appears above the overlay */
     margin-bottom: 20px;
+    
 }
 
 .homepage p {
@@ -155,7 +152,15 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
+    min-height: 100vh; /* Ensures the body fills the screen height */
+    display: flex;
+    flex-direction: column;
 }
+
+main {
+    flex: 1; /* Allows main content to expand and push the footer down */
+}
+
 
 /* Header styling */
     header {
@@ -174,6 +179,11 @@ body {
         z-index: 4; /* Ensures title text appears above the background logo */
         pointer-events: none;
     }
+    .highlight {
+    background-color: rgb(160, 190, 237);
+    font-weight: bold;
+    padding: 2px;
+}
 /* Styling for the #search-sort-options container */
 #search-sort-options {
     display: none; /* Hide by default */
@@ -337,7 +347,8 @@ footer {
     background-color: #1e3d59;
     color: white;
     padding: 15px 0;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative; /* Ensures it stays within the flow of the document */
 }
 
 /* Responsive design */
@@ -590,7 +601,7 @@ footer {
 }
 #contact {
     padding: 50px 20px;
-    background-color: #f4f4f9;
+    position: relative; /* To make sure the overlay is positioned correctly */
     color: #333;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -598,6 +609,28 @@ footer {
     margin: 30px auto;
     text-align: center;
 }
+
+/* Background image with reduced opacity */
+#contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('images/office.png') no-repeat center center/cover;
+    background-size: cover;
+    opacity: 0.3; /* Reduce the opacity to make the image less visible */
+    border-radius: 10px;
+    z-index: 1;
+}
+
+/* Ensure the content appears above the image */
+#contact > * {
+    position: relative;
+    z-index: 2;
+}
+
 
 /* Contact header styles */
 .contact-header h2 {
@@ -626,7 +659,7 @@ footer {
 .contact-info {
     flex: 1 1 40%; /* Adjusts size responsively */
     padding: 20px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8); /* Add a semi-transparent background for better readability */
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -656,7 +689,7 @@ footer {
 .contact-form-container {
     flex: 1 1 50%; /* Adjusts size responsively */
     padding: 20px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8); /* Add a semi-transparent background for better readability */
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -690,13 +723,14 @@ footer {
     margin-top: 20px;
     padding: 12px;
     font-size: 1.2rem;
-    background-color: #1e3d59;
+    background: linear-gradient(45deg, #1e3d59, #336779); /* Diagonal linear gradient */
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
 
 #contact-form button:hover {
     background-color: #3b6978;
@@ -735,6 +769,7 @@ footer {
 #contact address a:hover {
     text-decoration: underline; /* Add underline on hover */
 }
+
 #best-websites {
     padding: 20px;
     background-color: #f9f9f9;
@@ -823,18 +858,19 @@ footer {
 }
 
 #admin-login-form button {
-    background-color: #1e3d59;
+    background: radial-gradient(circle, rgba(30, 61, 89, 0.8), rgb(2, 31, 58)); /* Radial gradient */
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background 0.3s ease; /* Update the transition to cover the gradient */
 }
 
 #admin-login-form button:hover {
-    background-color: #3b6978;
+    background: radial-gradient(circle, rgba(30, 61, 89, 1), rgba(0, 123, 255, 1)); /* Hover effect with a new gradient */
 }
+ 
 fieldset {
     border: 1px solid #ddd;
     padding: 10px;
@@ -990,4 +1026,13 @@ label {
 
 .admin-device button:hover {
     background-color: #3b6978;
+}
+#smileyCanvas {
+    display: block;
+    margin: 0 auto;
+}
+
+svg {
+    display: block;
+    margin: 0 auto;
 }
