@@ -761,18 +761,27 @@ footer {
 #contact address a:hover {
     text-decoration: underline; /* Add underline on hover */
 }
-
+/* Styling for the best-websites section */
 #best-websites {
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #f4f4f4;
 }
 
 #best-websites h2 {
-    text-align: center;
     font-size: 2rem;
     color: #333;
+    text-align: center;
+    margin-bottom: 15px;
 }
 
+#best-websites p {
+    font-size: 1rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Website list styling */
 .website-list {
     display: flex;
     flex-wrap: wrap;
@@ -782,49 +791,77 @@ footer {
 
 .website-item {
     background-color: white;
-    width: 48%;
-    padding: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    box-sizing: border-box;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
 }
 
 .website-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-}
-
-.website-item img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .website-item h3 {
     font-size: 1.5rem;
     color: #333;
-    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.website-item img {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 15px;
 }
 
 .website-item p {
     font-size: 1rem;
-    color: #555;
-    margin: 10px 0;
+    color: #666;
+    margin-bottom: 15px;
 }
 
 .website-item .btn {
-    background-color: #1e3d59;
+    display: inline-block;
+    background-color: #04203e;
     color: white;
     padding: 10px 20px;
-    border-radius: 5px;
     text-decoration: none;
-    display: inline-block;
-    margin-top: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
 .website-item .btn:hover {
-    background-color: #3b6978;
+    background-color: #0056b3;
+}
+
+/* Video container */
+.video-container {
+    text-align: center;
+    margin-bottom: 40px;
+    max-width: 600px; 
+    margin-left: auto;  
+    margin-right: auto;
+    padding: 20px;  
+    background-color: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.video-container h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+video {
+    max-width: 100%;  /* Ensure the video takes up the width of its container /
+    width: 100%;      / Ensure video size fits the container /
+    height: auto;     / Maintain aspect ratio /
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); / Optional: Adds a subtle shadow */
 }
 #admin-login {
     padding: 20px;
