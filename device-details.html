@@ -63,83 +63,160 @@
         <p>&copy; 2024 Tech Devices Review</p>
     </footer>
     <script>
-        // This script will dynamically populate the details
         $(document).ready(function () {
-            // Parse the device data from the query parameters
-            const queryParams = new URLSearchParams(window.location.search);
-            const deviceIndex = queryParams.get('deviceIndex');
-            const devices = JSON.parse(localStorage.getItem('devices')); // Retrieve from storage
-            if (devices && devices[deviceIndex]) {
+        // Parse the device data from the query parameters
+        const queryParams = new URLSearchParams(window.location.search);
+        const deviceIndex = parseInt(queryParams.get('deviceIndex'), 10);
+        let devices = JSON.parse(localStorage.getItem('devices')) || [
+            // Default list of devices
+            {
+                name: "Smartphone, Samsung",
+                category: "Smartphone",
+                releaseDate: "2024-01-15",
+                rating: 4.5,
+                imageUrl: "images/device1.jpg",
+                specs: "8GB RAM, 128GB Storage, 6.5-inch Display",
+                reviews: []
+            },
+            {name: "Laptop, Lenovo", category: "Laptop", releaseDate: "2023-11-10", rating: 4.7, imageUrl: "images/device2.jpg", specs: "16GB RAM, 512GB SSD, 15.6-inch Display", reviews: []},
+            {name: "Tablet, Apple", category: "Tablet", releaseDate: "2023-09-05", rating: 4.8, imageUrl: "images/device3.jpg", specs: "4GB RAM, 64GB Storage, 10.2-inch Retina Display", reviews: []},
+            {name: "Smartwatch, Garmin", category: "Smartwatch", releaseDate: "2024-02-20", rating: 4.6, imageUrl: "images/device4.jpg", specs: "Heart Rate Monitor, GPS, 1.3-inch Display", reviews: []},
+            {name: "Headphones, Sony", category: "Audio", releaseDate: "2023-10-12", rating: 4.7, imageUrl: "images/device5.jpg", specs: "Noise Cancellation, 30-hour Battery Life", reviews: []},
+            {name: "Camera, Canon", category: "Camera", releaseDate: "2023-08-30", rating: 4.5, imageUrl: "images/device6.jpg", specs: "24.1 MP, 1080p Full HD, Wi-Fi Enabled", reviews: []},
+            {name: "iPhone 16, Apple", category: "Smartphone", releaseDate: "2024-09-10", rating: 4.9, imageUrl: "images/device7.jpg", specs: "12GB RAM, 256GB Storage, 6.1-inch Display", reviews: []},
+            {name: "Laptop, HP", category: "Laptop", releaseDate: "2023-12-01", rating: 4.4, imageUrl: "images/device8.jpg", specs: "8GB RAM, 256GB SSD, 14-inch Display", reviews: []},
+            {name: "Smart TV, LG", category: "Television", releaseDate: "2024-04-15", rating: 4.3, imageUrl: "images/device9.jpg", specs: "4K UHD, 55-inch, Smart Features", reviews: []},
+            {name: "Tablet, Samsung", category: "Tablet", releaseDate: "2023-06-22", rating: 4.2, imageUrl: "images/device10.jpg", specs: "6GB RAM, 128GB Storage, 11-inch Display", reviews: []},
+            {name: "Camera, Nikon", category: "Camera", releaseDate: "2023-07-14", rating: 4.6, imageUrl: "images/device11.jpg", specs: "20.9 MP, 4K UHD, Wi-Fi & Bluetooth", reviews: []},
+            {name: "Headphones, Bose", category: "Audio", releaseDate: "2023-05-03", rating: 4.8, imageUrl: "images/device12.jpg", specs: "Noise Cancelling, 20-hour Battery Life", reviews: []},
+            {name: "Applewatch, Apple", category: "Smartwatch", releaseDate: "2023-12-25", rating: 4.7, imageUrl: "images/device13.jpg", specs: "ECG, GPS, 1.7-inch Retina Display", reviews: []},
+            {name: "Laptop, Dell", category: "Laptop", releaseDate: "2023-08-10", rating: 4.5, imageUrl: "images/device14.jpg", specs: "16GB RAM, 1TB SSD, 15.6-inch Display", reviews: []},
+            {name: "Smartphone, Xiaomi", category: "Smartphone", releaseDate: "2024-02-05", rating: 4.4, imageUrl: "images/device15.jpg", specs: "8GB RAM, 256GB Storage, 6.7-inch Display", reviews: []},
+            {name: "Smart TV, Sony", category: "Television", releaseDate: "2024-01-25", rating: 4.6, imageUrl: "images/device16.jpg", specs: "4K HDR, 65-inch, Smart Features", reviews: []},
+            {name: "Tablet, Microsoft", category: "Tablet", releaseDate: "2023-09-15", rating: 4.5, imageUrl: "images/device17.jpg", specs: "8GB RAM, 128GB Storage, 12.3-inch Display", reviews: []},
+            {name: "Headphones, JBL", category: "Audio", releaseDate: "2023-06-29", rating: 4.3, imageUrl: "images/device18.jpg", specs: "Bluetooth, 25-hour Battery Life", reviews: []},
+            {name: "Smartwatch, Fitbit", category: "Smartwatch", releaseDate: "2023-10-01", rating: 4.2, imageUrl: "images/device19.jpg", specs: "Heart Rate, GPS, 1.2-inch Display", reviews: []},
+            {name: "Camera, Sony", category: "Camera", releaseDate: "2023-11-05", rating: 4.9, imageUrl: "images/device20.jpg", specs: "61 MP, 8K Video, Wi-Fi & Bluetooth", reviews: []},
+            {name: "Smartphone, OnePlus", category: "Smartphone", releaseDate: "2024-05-02", rating: 4.3, imageUrl: "images/device21.jpg", specs: "8GB RAM, 128GB Storage, 6.55-inch Display", reviews: []},
+            {name: "Laptop, Asus", category: "Laptop", releaseDate: "2023-07-22", rating: 4.7, imageUrl: "images/device22.jpg", specs: "32GB RAM, 1TB SSD, 17-inch Display", reviews: []},
+            {name: "Tablet, Lenovo", category: "Tablet", releaseDate: "2024-03-18", rating: 4.1, imageUrl: "images/device23.jpg", specs: "4GB RAM, 64GB Storage, 10-inch Display", reviews: []},
+            {name: "Headphones, Sennheiser", category: "Audio", releaseDate: "2023-04-28", rating: 4.5, imageUrl: "images/device24.jpg", specs: "Wireless, Noise Cancellation", reviews: []},
+            {name: "Smartwatch, Samsung", category: "Smartwatch", releaseDate: "2024-03-22", rating: 4.6, imageUrl: "images/device25.jpg", specs: "Heart Rate Monitor, GPS, 1.4-inch Display", reviews: []},
+            {name: "Camera, Panasonic", category: "Camera", releaseDate: "2023-03-15", rating: 4.2, imageUrl: "images/device26.jpg", specs: "20.3 MP, 4K Video, Image Stabilization", reviews: []},
+            {name: "Smartphone, Google", category: "Smartphone", releaseDate: "2024-06-12", rating: 4.5, imageUrl: "images/device27.jpg", specs: "12GB RAM, 256GB Storage, 6.3-inch Display", reviews: []},
+            {name: "Laptop, Acer", category: "Laptop", releaseDate: "2023-09-18", rating: 4.4, imageUrl: "images/device28.jpg", specs: "16GB RAM, 1TB HDD, 15-inch Display", reviews: []},
+            {name: "Smart TV, Samsung", category: "Television", releaseDate: "2023-11-08", rating: 4.8, imageUrl: "images/device29.jpg", specs: "8K QLED, 75-inch, Smart Features", reviews: []},
+            {name: "Tablet, Huawei", category: "Tablet", releaseDate: "2024-02-14", rating: 4.3, imageUrl: "images/device30.jpg", specs: "6GB RAM, 128GB Storage, 10.4-inch Display", reviews: []},
+            // Add more devices as needed
+        ];
+
+        if (isNaN(deviceIndex) || !devices[deviceIndex]) {
+            // If device not found, display error
+            $("#device-details").html("<p>Device not found!</p>");
+            console.error("Invalid or missing deviceIndex:", deviceIndex);
+            return;
+        }
+
         const device = devices[deviceIndex];
-        const nameElement = document.getElementById("device-name");
 
-        // Update name and image
-        nameElement.textContent = device.name;
-        $('#device-image').attr('src', device.imageUrl);
-        $('#device-specs').text(device.specs);
+        // Populate device details
+        $("#device-name").text(device.name);
+        $("#device-image").attr("src", device.imageUrl);
+        $("#device-specifications tbody").html(`
+            <tr><td>Category</td><td>${device.category}</td></tr>
+            <tr><td>Release Date</td><td>${device.releaseDate}</td></tr>
+            <tr><td>Rating</td><td>${device.rating} / 5</td></tr>
+            <tr><td>Specifications</td><td>${device.specs}</td></tr>
+        `);
 
-        // Trigger animation for the name
-        gsap.fromTo(nameElement, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 1 });
-            
-                if (device.reviews && device.reviews.length > 0) {
-                    const reviewsHtml = device.reviews.map(review => {
-                        const stars = '⭐'.repeat(review.rating);
-                        return `<div><p>${stars}</p><p>${review.text}</p></div>`;
-                    }).join('');
-                    $('#reviews-container').html(reviewsHtml);
-                }
-            }
-            
-            $(document).on('click', '#star-rating .fa-star', function () {
-    const starValue = $(this).data('value');
-    $('#star-rating .fa-star').each(function () {
-        const value = $(this).data('value');
-        $(this).toggleClass('selected', value <= starValue);
-    });
-});
+        // Populate reviews
+        if (device.reviews && device.reviews.length > 0) {
+            const reviewsHtml = device.reviews.map(review => `
+                <div>
+                    <p>${'⭐'.repeat(review.rating)}</p>
+                    <p>${review.text}</p>
+                </div>
+            `).join('');
+            $("#reviews-container").html(reviewsHtml);
+        } else {
+            $("#reviews-container").html("<p>No reviews yet. Be the first to review!</p>");
+        }
 
+        // Star rating functionality
+        $(document).on("click", "#star-rating .fa-star", function () {
+            const starValue = $(this).data("value");
+            $("#star-rating .fa-star").each(function () {
+                $(this).toggleClass("selected", $(this).data("value") <= starValue);
+            });
         });
 
+        // Submit review
+        $("#review-form").on("submit", function (e) {
+            e.preventDefault();
+            const reviewText = $("#modal-review-text").val();
+            const starRating = $("#star-rating .fa-star.selected").length;
+
+            if (!reviewText || starRating === 0) {
+                alert("Please add a review and select a star rating.");
+                return;
+            }
+
+            const newReview = { text: reviewText, rating: starRating };
+            device.reviews.push(newReview);
+
+            // Save updated devices to localStorage
+            devices[deviceIndex] = device;
+            localStorage.setItem("devices", JSON.stringify(devices));
+
+            // Refresh reviews display
+            const reviewsHtml = device.reviews.map(review => `
+                <div>
+                    <p>${'⭐'.repeat(review.rating)}</p>
+                    <p>${review.text}</p>
+                </div>
+            `).join('');
+            $("#reviews-container").html(reviewsHtml);
+
+            // Clear form
+            $("#modal-review-text").val("");
+            $("#star-rating .fa-star").removeClass("selected");
+        });
+    });
+
+
+
         function submitReview() {
-    // Retrieve the review text and star rating
-    const reviewText = $('#review-text').val();
+    const reviewText = $('#modal-review-text').val();
     const starRating = $('#star-rating .fa-star.selected').length;
 
-    // Validate input
     if (!reviewText || starRating === 0) {
         alert('Please add a review and select a star rating.');
         return;
     }
+    const devices = JSON.parse(localStorage.getItem('devices')) || [];
+const deviceIndex = parseInt(new URLSearchParams(window.location.search).get('deviceIndex'), 10);
 
-    // Parse the device index from the URL
-    const queryParams = new URLSearchParams(window.location.search);
-    const deviceIndex = queryParams.get('deviceIndex');
-    const devices = JSON.parse(localStorage.getItem('devices'));
-
-    if (devices && devices[deviceIndex]) {
-        // Add the new review to the selected device
-        const device = devices[deviceIndex];
-        device.reviews.push({ text: reviewText, rating: starRating });
-
-        // Save updated devices array back to localStorage
-        localStorage.setItem('devices', JSON.stringify(devices));
-
-        // Clear the input fields
-        $('#review-text').val('');
-        $('#star-rating .fa-star').removeClass('selected');
-
-        // Refresh the reviews section
-        const reviewsHtml = device.reviews.map(review => {
-            const stars = '⭐'.repeat(review.rating);
-            return `<div><p>${stars}</p><p>${review.text}</p></div>`;
-        }).join('');
-        $('#reviews-container').html(reviewsHtml);
-
-        alert('Thank you for your review!');
-    } else {
-        alert('An error occurred while submitting your review. Please try again.');
-    }
+if (!devices[deviceIndex]) {
+    document.getElementById("device-details").innerHTML = "<p>Device not found!</p>";
+    console.error("Device not found for index:", deviceIndex);
+    return;
 }
+
+const device = devices[deviceIndex];
+
+document.getElementById("device-name").textContent = device.name || "Unnamed Device";
+document.getElementById("device-image").src = device.imageUrl || "default.jpg";
+
+const specTableBody = document.querySelector("#device-specifications tbody");
+specTableBody.innerHTML = `
+    <tr><td>Category</td><td>${device.category || "N/A"}</td></tr>
+    <tr><td>Release Date</td><td>${device.releaseDate || "N/A"}</td></tr>
+    <tr><td>Rating</td><td>${device.rating || "N/A"} / 5</td></tr>
+    <tr><td>Specifications</td><td>${device.specs || "N/A"}</td></tr>
+`;
+
+}
+
 const urlParams = new URLSearchParams(window.location.search);
 const deviceIndex = urlParams.get('deviceIndex');
 // Example device data
