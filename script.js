@@ -35,43 +35,32 @@ $(document).ready(function() {
         localStorage.setItem("devices", JSON.stringify(devices));   
         const devicesPerPage = 10;
         let currentPage = 1;
-         // Handle the "View All" button click
+         // butoni viewall
          document.querySelectorAll('.category-card').forEach(card => {
             card.addEventListener('mousemove', (event) => {
                 const rect = card.getBoundingClientRect();
-                const x = event.clientX - rect.left; // X position within the element
-                const y = event.clientY - rect.top;  // Y position within the element
+                const x = event.clientX - rect.left; 
+                const y = event.clientY - rect.top;  
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
         
-                const rotateX = ((y - centerY) / centerY) * 15; // Adjust 15 for intensity
+                const rotateX = ((y - centerY) / centerY) * 15; 
                 const rotateY = ((x - centerX) / centerX) * -15;
         
                 card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             });
         
             card.addEventListener('mouseleave', () => {
-                card.style.transform = ''; // Reset when the mouse leaves
+                card.style.transform = ''; 
             });
         });
-        
-    // Function to show devices by category
-    function showDevicesByCategory(category) {
-        // Filter devices based on category
-        const filteredDevices = devices.filter(device => device.category.toLowerCase() === category.toLowerCase());
-
-        // Render filtered devices (this assumes a renderDevices function exists)
-        renderDevices(filteredDevices);
-    }
-    
-        // Function to render devices
         function renderDevices(page = 1) {
             const container = $('#device-container');
             const startIndex = (page - 1) * devicesPerPage;
             const endIndex = startIndex + devicesPerPage;
             const filteredDevices = devices.slice(startIndex, endIndex);
     
-            container.empty(); // Clear the current list
+            container.empty(); 
             filteredDevices.forEach(device => {
                 const deviceHtml = `
                     <div class="device" data-name="${device.name}" data-category="${device.category}" data-rating="${device.rating}" data-release="${device.releaseDate}">
@@ -89,13 +78,13 @@ $(document).ready(function() {
             renderPagination();
         }
     
-        // Pagination logic
+        //sa paisje me dal per faqe
         function renderPagination() {
             const totalPages = Math.ceil(devices.length / devicesPerPage);
             $('#pagination').empty();
     
             for (let i = 1; i <= totalPages; i++) {
-                const pageButton = `<button class="page-btn" data-page="${i}">${i}</button>`;
+                const pageButton = `<button class="page-btn" data-page="${i}">${i}</button>`; //butonat1,2,3
                 $('#pagination').append(pageButton);
             }
     
@@ -104,8 +93,7 @@ $(document).ready(function() {
                 renderDevices(currentPage);
             });
         }
-    
-        // Search functionality
+        
         $('#searchBar').on('keyup', function() {
             const query = $(this).val().toLowerCase();
             $('#device-container .device').filter(function() {
@@ -116,101 +104,74 @@ $(document).ready(function() {
             });
         });
     
-        // Sidebar and main content toggle
         const homepage = $('#homepage');
         const mainContent = $('#main-content');
         const searchSortOptions = $('#search-sort-options');
     
-        // Initially show homepage, hide main content
         homepage.show();
         mainContent.hide();
-    
-        // Handle navigation
+
         $('.nav-link').on('click', function (event) {
-            event.preventDefault(); // Prevent default link behavior
-        
-            const targetId = $(this).data('target'); // Get the target section ID
-        
-            // Update the browser's history stack
+            event.preventDefault(); 
+            const targetId = $(this).data('target'); 
             history.pushState({ section: targetId }, '', `#${targetId}`);
-        
-            // Show or hide relevant sections
             $('#homepage').hide();
             $('#main-content').show();
-        
             if (targetId === 'devices') {
-                $('#search-sort-options').show(); // Show search and sort options
-                renderDevices(currentPage); // Render all devices
+                $('#search-sort-options').show(); 
+                renderDevices(currentPage); 
             } else {
-                $('#search-sort-options').hide(); // Hide search and sort options for other sections
+                $('#search-sort-options').hide(); 
             }
         
-            $('main > section').hide(); // Hide all sections
-            $(`#${targetId}`).show(); // Show the selected section
+            $('main > section').hide(); 
+            $(`#${targetId}`).show(); 
         
-            // Close the sidebar when a navigation link is clicked
+            
             $('#sidebar-menu').removeClass('active');
         });
-        
-        // Handle back/forward navigation
         window.onpopstate = function (event) {
-            const section = event.state?.section || 'homepage'; // Default to homepage if no state exists
-        
-            // Show or hide relevant sections
+            const section = event.state?.section || 'homepage';     
             $('#homepage').toggle(section === 'homepage');
             $('#main-content').toggle(section !== 'homepage');
-        
             if (section === 'devices') {
-                $('#search-sort-options').show(); // Show search and sort options
-                renderDevices(currentPage); // Render all devices
+                $('#search-sort-options').show(); 
+                renderDevices(currentPage); 
             } else {
-                $('#search-sort-options').hide(); // Hide search and sort options for other sections
+                $('#search-sort-options').hide(); 
             }
-        
-            $('main > section').hide(); // Hide all sections
-            $(`#${section}`).show(); // Show the selected section
+            $('main > section').hide();
+            $(`#${section}`).show(); 
         };
         
-        // Sorting functionality
         $('#sort-rating').on('click', function() {
-            devices.sort((a, b) => b.rating - a.rating); // Sort by rating in descending order
+            devices.sort((a, b) => b.rating - a.rating); 
             renderDevices(currentPage);
         });
     
         $('#sort-release').on('click', function() {
-            devices.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate)); // Sort by release date in descending order
+            devices.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate)); 
             renderDevices(currentPage);
         });
     
         $('#sort-category').on('click', function() {
-            devices.sort((a, b) => a.category.localeCompare(b.category)); // Sort by category in alphabetical order
+            devices.sort((a, b) => a.category.localeCompare(b.category)); 
             renderDevices(currentPage);
         });
     
-        // Back to homepage
         $('#back-to-homepage').on('click', function() {
             mainContent.hide();
             homepage.show();
         });
     
-     // Function to open the device modal and show detailed information
 $(document).on('click', '.view-details-btn', function () {
     const deviceIndex = $(this).closest('.device').index();
     const deviceData = JSON.stringify(devices);
-
-    // Save device data to localStorage
     localStorage.setItem('devices', deviceData);
-
-    // Open the details page in a new tab with the device index in the URL
     window.open(`device-details.html?deviceIndex=${deviceIndex}`, '_blank');
 });
-
-    
-        // Admin panel functionality with added fields
 $('#device-form').on('submit', function (event) {
     event.preventDefault();
-
-    // Capture form inputs, including new fields
     const newDevice = {
         name: $('#device-name').val(),
         category: $('#device-category').val(),
@@ -218,29 +179,27 @@ $('#device-form').on('submit', function (event) {
         rating: parseFloat($('#device-rating').val()),
         imageUrl: $('#device-image-url').val(),
         specs: $('#device-specs').val(),
-        availability: $('input[name="availability"]:checked').val(), // Capture radio button value
+        availability: $('input[name="availability"]:checked').val(), 
         features: $('input[name="features"]:checked')
             .map(function () {
-                return this.value; // Capture checked checkbox values
+                return this.value; 
             })
-            .get(), // Convert to an array
-        reviews: [], // Initialize an empty array for new devices
+            .get(), 
+        reviews: [], 
     };
-
     const index = $('#device-form').data('editIndex');
     if (index !== undefined) {
-        devices[index] = newDevice; // Update existing device
+        devices[index] = newDevice; 
         $('#device-form').removeData('editIndex');
     } else {
-        devices.push(newDevice); // Add new device
+        devices.push(newDevice); 
     }
-
     renderDevices();
     loadAdminDevices();
-    $('#device-form')[0].reset(); // Reset form fields
+    $('#device-form')[0].reset(); 
 });
 
-// Load admin devices into the UI
+
 function loadAdminDevices() {
     $('#admin-device-list').empty();
     devices.forEach((device, index) => {
@@ -258,7 +217,7 @@ function loadAdminDevices() {
     });
 }
 
-// Edit device functionality
+
 function editDevice(index) {
     const device = devices[index];
     $('#device-name').val(device.name);
@@ -267,40 +226,27 @@ function editDevice(index) {
     $('#device-rating').val(device.rating);
     $('#device-image-url').val(device.imageUrl);
     $('#device-specs').val(device.specs);
-
-    // Set radio button value
     $(`input[name="availability"][value="${device.availability}"]`).prop('checked', true);
-
-    // Set checkbox values
     $('input[name="features"]').each(function () {
         $(this).prop('checked', device.features.includes(this.value));
     });
 
-    $('#device-form').data('editIndex', index); // Store index for updating
+    $('#device-form').data('editIndex', index); 
 }
-
-// Delete device functionality
 function deleteDevice(index) {
     devices.splice(index, 1);
     loadAdminDevices();
     renderDevices();
 }
-
-        // Hamburger menu toggle
         const sidebarMenu = $('#sidebar-menu');
         const hamburger = $('.hamburger');
-    
-        // Toggle the sidebar menu when clicking the hamburger icon
         hamburger.on('click', function() {
             sidebarMenu.toggleClass('active');
         });
-        // Close the sidebar when a navigation link is clicked
 $('.nav-link').on('click', function() {
     sidebarMenu.removeClass('active');
 });
-    
-        // Initial device rendering
-        renderDevices(currentPage);
+            renderDevices(currentPage);
         $(document).on('mouseenter', '.fa-star', function () {
             const starValue = $(this).data('value');
             $('#star-rating .fa-star').each(function () {
@@ -319,32 +265,26 @@ $('.nav-link').on('click', function() {
                 const value = $(this).data('value');
                 $(this).toggleClass('selected', value <= starValue);
             });
-            $('#star-rating').data('selected-rating', starValue); // Save the selected rating
+            $('#star-rating').data('selected-rating', starValue); 
         });
         
         const canvas = document.getElementById('smileyCanvas');
 const ctx = canvas.getContext('2d');
 
-// Draw face (circle)
+
 ctx.beginPath();
-ctx.arc(75, 75, 50, 0, Math.PI * 2); // Circle
+ctx.arc(75, 75, 50, 0, Math.PI * 2); 
 ctx.fillStyle = 'darkblue';
 ctx.fill();
 ctx.stroke();
-
-// Draw eyes
 ctx.beginPath();
-ctx.arc(55, 65, 5, 0, Math.PI * 2); // Left eye
-ctx.arc(95, 65, 5, 0, Math.PI * 2); // Right eye
+ctx.arc(55, 65, 5, 0, Math.PI * 2); 
+ctx.arc(95, 65, 5, 0, Math.PI * 2); 
 ctx.fillStyle = 'black';
 ctx.fill();
-
-// Draw mouth (arc)
 ctx.beginPath();
-ctx.arc(75, 75, 30, 0, Math.PI, false); // Mouth (smile)
+ctx.arc(75, 75, 30, 0, Math.PI, false); 
 ctx.strokeStyle = 'black';
 ctx.lineWidth = 2;
 ctx.stroke();
-   
-        
-    });
+        });
