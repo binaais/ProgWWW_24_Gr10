@@ -19,13 +19,13 @@
 	<div class="loader"></div>
 	<div class="loader"></div>
 </div><span> <strong>Tech Devices Review</strong></span></h1>
-     <!-- Homepage -->
+     <!-- Faqja Kryesore -->
      <div id="homepage" class="homepage">
-     <!-- Feature Highlights Section -->
+     
 <section id="feature-highlights" class="feature-highlights">
     <h2>Explore Our Device Categories</h2> 
    <div class="category-cards">
-        <!-- Smartphone Category Card -->
+        <!-- kategorit e paisjeve -->
         <div class="category-card" id="smartphones-card">
             <img src="images/smartphone-category.png" alt="Smartphones">
             <h3>Smartphones</h3>
@@ -33,7 +33,7 @@
             
         </div>
 
-        <!-- Laptop Category Card -->
+        
         <div class="category-card" id="laptops-card">
             <img src="images/laptop-category.png" alt="Laptops">
             <h3>Laptops</h3>
@@ -41,7 +41,6 @@
             
         </div>
 
-        <!-- Tablet Category Card -->
         <div class="category-card" id="tablets-card">
             <img src="images/tablet-category.png" alt="Tablets">
             <h3>Tablets</h3>
@@ -49,7 +48,6 @@
             
         </div>
 
-        <!-- Headphones Category Card -->
         <div class="category-card" id="headphones-card">
             <img src="images/headphone-category.png" alt="Headphones">
             <h3>Headphones</h3>
@@ -58,17 +56,16 @@
         </div>
     </div>
 </section>
-           <!-- <i class="fa fa-search search-icon"></i> -->
 
         </div>
-        <!-- Hamburger menu icon -->
+        <!-- menyja e hamburgerit -->
         <div class="hamburger">
             <span></span>
             <span></span>
             <span></span>
         </div>
     
-        <!-- Sidebar menu -->
+        <!-- menyja anash -->
         <nav id="sidebar-menu">
             <ul>
                 <li><a href="#devices.html" class="nav-link" data-target="devices">All Devices</a></li>
@@ -82,7 +79,7 @@
             </ul>
         </nav>
     </header>
-    <!-- Search and Sorting Options (visible in 'All Devices' section) -->
+    <!-- me bo search edhe sortim -->
 <div id="search-sort-options" style="display: none;">
     <div class="search-container">
         <input type="text" id="searchBar" placeholder="Search for devices...">
@@ -117,9 +114,9 @@
         
                 </video>
                 
-            </div>
+            </div><!-- Websitat -->
             <div class="website-list">
-                <!-- Website 1 -->
+                
                 <div class="website-item">
                     <h3>Amazon</h3>
                     <img src="images/Amazon.png" alt="Amazon Logo" class="website-img">
@@ -128,7 +125,6 @@
                     <a href="https://www.amazon.com" class="btn" target="_blank">Visit Amazon</a>
                 </div>
         
-                <!-- Website 2 -->
                 <div class="website-item">
                     <h3>Best Buy</h3>
                     <img src="images/best-buy-logo.png" alt="Best Buy Logo" class="website-img">
@@ -137,7 +133,6 @@
                     <a href="https://www.bestbuy.com" class="btn" target="_blank">Visit Best Buy</a>
                 </div>
         
-                <!-- Website 3 -->
                 <div class="website-item">
                     <h3>Newegg</h3>
                     <img src="images/newegg-logo.png" alt="Newegg Logo" class="website-img">
@@ -146,7 +141,6 @@
                     <a href="https://www.newegg.com" class="btn" target="_blank">Visit Newegg</a>
                 </div>
         
-                <!-- Website 4 -->
                 <div class="website-item">
                     <h3>B&H Photo Video</h3>
                     <img src="images/bh-logo.png" alt="B&H Logo" class="website-img">
@@ -155,7 +149,6 @@
                     <a href="https://www.bhphotovideo.com" class="btn" target="_blank">Visit B&H</a>
                 </div>
         
-                <!-- Website 5 -->
                 <div class="website-item">
                     <h3>Apple Store</h3>
                     <img src="images/apple-logo.png" alt="Apple Store Logo" class="website-img">
@@ -168,13 +161,13 @@
         
     
         <section id="contact">
-            <!-- About Us Section -->
+            <!-- pjesa e about us edhe contact us -->
             <h2>Welcome to <span style="font-style: italic;">Tech Devices Review</span></h2>
             <p><strong>We aim to provide honest and detailed reviews</strong> of the latest tech gadgets, from smartphones to smartwatches and everything in between.</p>
         
             <h3><u><strong> Our Team</u></strong></h3>
             <p>Dedicated tech enthusiasts bringing you the <strong><em>best insights</em></strong> and tips for choosing the right device.</p>
-            <!-- Contact Us Section -->
+            
             <div class="contact-header">
                 <h2>Contact Us</h2>
                 <p>Have questions or need help? </p>
@@ -214,7 +207,7 @@
         </section>
         
         <section id="admin">
-            <!-- Admin Login Form -->
+            <!-- logini i adminit -->
             <div id="admin-login" class="modal-content">
                 <h2>Admin Login</h2>
                 <form id="admin-login-form" onsubmit="adminLogin(event)">
@@ -228,7 +221,7 @@
                 </form>
             </div>
         
-            <!-- Device Management Panel (Initially Hidden) -->
+            <!-- formulari i adminit per me shtu ni paisje te re  -->
             <div id="admin-panel" class="modal-content" style="display: none;">
                 <h2>Device Management Panel</h2>
                 <form id="device-form">
@@ -239,7 +232,7 @@
                     <input type="text" id="device-image-url" placeholder="Image URL">
                     <textarea id="device-specs" placeholder="Specifications" required></textarea>
                     
-                   <!-- Radio Buttons: Availability -->
+                   <!-- radio button -->
                    <fieldset>
                     <legend>Availability</legend>
                     <input type="radio" id="in-stock" name="availability" value="in-stock">
@@ -265,13 +258,13 @@
             <button type="submit" class="btn">Save Device</button>
         </form>
         <style>
-            /* Hide the default checkbox */
+           
 
 input[type="checkbox"] {
     display: none;
 }
 
-/* Create a custom checkbox */
+/* dizajni i checkbox */
 input[type="checkbox"] + label {
     display: flex;
     align-items: center;
@@ -290,17 +283,15 @@ input[type="checkbox"] + label::before {
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Checked state */
 input[type="checkbox"]:checked + label::before {
     background-color: #1e3d59;
     border-color: #1e3d59;
 }
-/* Hide the default radio button */
 input[type="radio"] {
     display: none;
 }
 
-/* Create a custom radio button */
+/* Dizajni i radio button */
 input[type="radio"] + label {
     display: flex;
     align-items: center;
@@ -314,12 +305,11 @@ input[type="radio"] + label::before {
     height: 20px;
     margin-right: 10px;
     border: 2px solid #1e3d59;
-    border-radius: 50%; /* Circle for radio button */
+    border-radius: 50%;
     background-color: white;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Checked state */
 input[type="radio"]:checked + label::before {
     background-color: #1e3d59;
     border-color: #1e3d59;
@@ -327,23 +317,22 @@ input[type="radio"]:checked + label::before {
 
         </style>
                 <script>
-            // Simple admin credentials (for demonstration purposes only)
+            // Kredincialet e adminit
             const ADMIN_CREDENTIALS = {
                 username: "admin",
                 password: "password123"
             };
         
             function adminLogin(event) {
-                event.preventDefault(); // Prevent form submission
+                event.preventDefault(); 
         
                 const username = document.getElementById("admin-username").value;
                 const password = document.getElementById("admin-password").value;
         
-                // Check credentials
                 if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
                     alert("Login successful!");
                     
-                    // Hide login form and show admin panel
+                    
                     document.getElementById("admin-login").style.display = "none";
                     document.getElementById("admin-panel").style.display = "block";
                 } else {
