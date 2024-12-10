@@ -173,11 +173,102 @@ main {
     }
 
     h1 {
-        font-family: 'Montserrat', sans-serif; /* Use the font name you selected */
-        font-size: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Montserrat', sans-serif;
+        color: #e3e9ec;
+        font-size: 2.5rem;
+        margin: 20px 0;
+    }
+    
+    .container {
         position: relative;
-        z-index: 4; /* Ensures title text appears above the background logo */
-        pointer-events: none;
+        width: 160px; /* Adjust size */
+        height: 100px;
+        margin-left: 15px; /* Adjust spacing from the title */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .loader {
+        position: absolute;
+        z-index: 10;
+        border-radius: 5px;
+        background: #acb9c2;
+        animation: dot1_ 3s cubic-bezier(0.55, 0.3, 0.24, 0.99) infinite;
+    }
+    
+    .loader:nth-child(2) {
+        z-index: 11;
+        width: 150px;
+        height: 90px;
+        border-radius: 3px;
+        background: #000308;
+        animation-name: dot2_;
+    }
+    
+    .loader:nth-child(3) {
+        z-index: 12;
+        width: 40px;
+        height: 20px;
+        border-radius: 0 0 5px 5px;
+        background: #6bb2cd;
+        animation-name: dot3_;
+    }
+    
+    @keyframes dot1_ {
+        3%, 97% {
+            width: 160px;
+            height: 100px;
+        }
+    
+        30%, 36% {
+            width: 80px;
+            height: 120px;
+        }
+    
+        63%, 69% {
+            width: 40px;
+            height: 80px;
+        }
+    }
+    
+    @keyframes dot2_ {
+        3%, 97% {
+            height: 90px;
+            width: 150px;
+        }
+    
+        30%, 36% {
+            width: 70px;
+            height: 96px;
+        }
+    
+        63%, 69% {
+            width: 32px;
+            height: 60px;
+        }
+    }
+    
+    @keyframes dot3_ {
+        3%, 97% {
+            height: 20px;
+            width: 40px;
+        }
+    
+        30%, 36% {
+            width: 8px;
+            height: 8px;
+            border-radius: 8px;
+        }
+    
+        63%, 69% {
+            width: 16px;
+            height: 4px;
+            border-radius: 10px;
+        }
     }
     .highlight {
     background-color: rgb(160, 190, 237);
