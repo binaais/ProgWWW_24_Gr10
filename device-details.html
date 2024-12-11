@@ -200,21 +200,30 @@ if (!devices[deviceIndex]) {
     return;
 }
         }
-function animateDeviceName() {
+        document.addEventListener("DOMContentLoaded", () => {
     const deviceNameElement = document.getElementById("device-name");
-    deviceNameElement.classList.remove("animate");
-    void deviceNameElement.offsetWidth; 
-    deviceNameElement.classList.add("animate");
-}
+    const style = document.createElement("style");
+    style.textContent = `
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate {
+            animation: fadeIn 1s ease-in-out;
+        }
+    `;
+    document.head.appendChild(style);
 
-
-const style = document.createElement("style");
-style.textContent = `
-    .animate {
-        animation: fadeIn 1s ease-in-out;
+    function animateDeviceName() {
+        deviceNameElement.classList.remove("animate");
+        void deviceNameElement.offsetWidth; 
+        deviceNameElement.classList.add("animate");
     }
-`;
-document.head.appendChild(style);
+
+    deviceNameElement.textContent = "New Device Name";
+    animateDeviceName();
+});
+
 
 
 document.getElementById("device-name").textContent = "New Device Name";

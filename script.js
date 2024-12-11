@@ -172,6 +172,7 @@ $(document).on('click', '.view-details-btn', function () {
 });
 $('#device-form').on('submit', function (event) {
     event.preventDefault();
+
     const newDevice = {
         name: $('#device-name').val(),
         category: $('#device-category').val(),
@@ -179,7 +180,7 @@ $('#device-form').on('submit', function (event) {
         rating: parseFloat($('#device-rating').val()),
         imageUrl: $('#device-image-url').val(),
         specs: $('#device-specs').val(),
-        availability: $('input[name="availability"]:checked').val(), 
+        availability: $('input[name="availability"]:checked').val(),
         features: $('input[name="features"]:checked')
             .map(function () {
                 return this.value; 
@@ -187,6 +188,7 @@ $('#device-form').on('submit', function (event) {
             .get(), 
         reviews: [], 
     };
+
     const index = $('#device-form').data('editIndex');
     if (index !== undefined) {
         devices[index] = newDevice; 
@@ -194,12 +196,20 @@ $('#device-form').on('submit', function (event) {
     } else {
         devices.push(newDevice); 
     }
+
     renderDevices();
     loadAdminDevices();
-    $('#device-form')[0].reset(); 
+    $('#device-form')[0].reset();
+    showMessage("Device added successfully!", "success");
 });
-
-
+function showMessage(message, type) {
+    const messageContainer = $('#message-container'); 
+    messageContainer.html(`<div class="message ${type}">${message}</div>`);
+    messageContainer.show();
+    setTimeout(() => {
+        messageContainer.hide();
+    }, 3000); 
+}
 function loadAdminDevices() {
     $('#admin-device-list').empty();
     devices.forEach((device, index) => {
@@ -215,28 +225,6 @@ function loadAdminDevices() {
         `;
         $('#admin-device-list').append(deviceHtml);
     });
-}
-
-
-function editDevice(index) {
-    const device = devices[index];
-    $('#device-name').val(device.name);
-    $('#device-category').val(device.category);
-    $('#device-release-date').val(device.releaseDate);
-    $('#device-rating').val(device.rating);
-    $('#device-image-url').val(device.imageUrl);
-    $('#device-specs').val(device.specs);
-    $(`input[name="availability"][value="${device.availability}"]`).prop('checked', true);
-    $('input[name="features"]').each(function () {
-        $(this).prop('checked', device.features.includes(this.value));
-    });
-
-    $('#device-form').data('editIndex', index); 
-}
-function deleteDevice(index) {
-    devices.splice(index, 1);
-    loadAdminDevices();
-    renderDevices();
 }
         const sidebarMenu = $('#sidebar-menu');
         const hamburger = $('.hamburger');
