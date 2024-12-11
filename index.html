@@ -253,7 +253,10 @@
                     <input type="checkbox" id="discounted" name="features" value="discounted">
                     <label for="discounted">Discounted</label>
                 </fieldset>
-                
+                <button id="getLocation">Get My Location</button>
+                <p id="output"></p>
+               
+
 
             <button type="submit" class="btn">Save Device</button>
         </form>
@@ -339,6 +342,26 @@ input[type="radio"]:checked + label::before {
                     alert("Invalid username or password. Please try again.");
                 }
             }
+            const button = document.getElementById('getLocation');
+            const output = document.getElementById('output');
+
+    button.addEventListener('click', () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                output.innerText = `Latitude: ${latitude}, Longitude: ${longitude}`;
+            },
+            (error) => {
+                output.innerText = `Error: ${error.message}`;
+            }
+        );
+    } else {
+        output.innerText = "Geolocation is not supported by this browser.";
+    }
+});
+
         </script>
 
         
