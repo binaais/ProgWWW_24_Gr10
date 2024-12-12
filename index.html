@@ -228,9 +228,9 @@
                     <input type="text" id="device-category" placeholder="Category" required>
                     <input type="date" id="device-release-date" placeholder="Release Date" required>
                     <input type="number" step="0.1" id="device-rating" placeholder="Rating" min="0" max="5" required>
-                    <input type="text" id="device-image-url" placeholder="Image URL">
+                    <div id="drop-zone">Drag & Drop an Image Here or Click to Select</div>
                     <textarea id="device-specs" placeholder="Specifications" required></textarea>
-                    
+              
                    <!-- radio button -->
                    <fieldset>
                     <legend>Availability</legend>
@@ -259,6 +259,8 @@
 
             <button type="submit" class="btn">Save Device</button>
         </form>
+        <div id="preview"></div>
+  </div>
         <style>
            
 
@@ -359,6 +361,58 @@ input[type="radio"]:checked + label::before {
     } else {
         output.innerText = "Geolocation is not supported by this browser.";
     }
+});
+// Drag-and-Drop Image Upload Logic
+const dropZone = document.getElementById('drop-zone');
+const imageUrlInput = document.getElementById('device-image-url');
+const preview = document.getElementById('preview');
+
+// Handle Drag Events
+dropZone.addEventListener('dragover', (event) => {
+  event.preventDefault();
+  dropZone.classList.add('dragging');
+});
+
+dropZone.addEventListener('dragleave', () => {
+  dropZone.classList.remove('dragging');
+});
+
+dropZone.addEventListener('drop', (event) => {
+  event.preventDefault();
+  dropZone.classList.remove('dragging');
+
+  const file = event.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      // Display the image URL
+      imageUrlInput.value = reader.result;
+
+      // Show image preview
+      preview.innerHTML = `<img src="${reader.result}" alt="Image Preview">`;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    alert('Please drop a valid image file.');
+  }
+});
+
+dropZone.addEventListener('click', () => {
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = 'image/*';
+  fileInput.click();
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        imageUrlInput.value = reader.result;
+        preview.innerHTML = `<img src="${reader.result}" alt="Image Preview">`;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
 });
 
         </script>

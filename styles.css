@@ -410,16 +410,52 @@ footer {
     border: 1px solid #ddd;
     border-radius: 50px;
 }
+/* General Form Styles */
 .modal-content {
-    background-color: #ffffff;
-    margin: 5% auto;
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
     padding: 20px;
+    border: 1px solid #ccc;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    width: 60%;
-    max-width: 700px;
-    animation: slideDown 0.5s ease-out;
-}
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Drag-and-Drop Zone */
+  #drop-zone {
+    width: 100%;
+    height: 150px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #777;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  
+  #drop-zone.dragging {
+    background-color: #e0f7fa;
+    border-color: #00bcd4;
+    color: #00bcd4;
+  }
+  
+  /* Image Preview */
+  #preview {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  #preview img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
 #modal-title {
     font-size: 1.8rem;
     color: #1e3d59;
