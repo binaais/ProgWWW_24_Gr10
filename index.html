@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script.js"></script>
+    <script src="worker.js"></script>
 </head>
 <body>
    
@@ -163,7 +164,9 @@
             <!-- pjesa e about us edhe contact us -->
             <h2>Welcome to <span style="font-style: italic;">Tech Devices Review</span></h2>
             <p><strong>We aim to provide honest and detailed reviews</strong> of the latest tech gadgets, from smartphones to smartwatches and everything in between.</p>
-        
+            <p> We aim to provide products that only have:  
+            <div id="average-rating" style="font-size: 1.2rem; color: #1e3d59; margin-bottom: 20px;">
+                Calculating average rating...</div> </p>
             <h3><u><strong> Our Team</u></strong></h3>
             <p>Dedicated tech enthusiasts bringing you the <strong><em>best insights</em></strong> and tips for choosing the right device.</p>
             
@@ -228,7 +231,9 @@
                     <input type="text" id="device-category" placeholder="Category" required>
                     <input type="date" id="device-release-date" placeholder="Release Date" required>
                     <input type="number" step="0.1" id="device-rating" placeholder="Rating" min="0" max="5" required>
-                    <div id="drop-zone">Drag & Drop an Image Here or Click to Select</div>
+                    <input type="hidden" id="device-image-url" name="device-image-url">
+                    <div id="drop-zone">Drag & Drop </div>
+                    <div id="preview"></div>
                     <textarea id="device-specs" placeholder="Specifications" required></textarea>
               
                    <!-- radio button -->
@@ -259,8 +264,7 @@
 
             <button type="submit" class="btn">Save Device</button>
         </form>
-        <div id="preview"></div>
-  </div>
+          </div>
         <style>
            
 
@@ -345,7 +349,12 @@ input[type="radio"]:checked + label::before {
             }
             const button = document.getElementById('getLocation');
             const output = document.getElementById('output');
-
+            function validateRating(rating) {
+    return !isNaN(rating) && rating >= 0 && rating <= 5;
+}
+function validateDate(date) {
+    return !isNaN(new Date(date).getTime());
+}
     button.addEventListener('click', () => {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -362,20 +371,23 @@ input[type="radio"]:checked + label::before {
         output.innerText = "Geolocation is not supported by this browser.";
     }
 });
-// Drag-and-Drop Image Upload Logic
+
 const dropZone = document.getElementById('drop-zone');
 const imageUrlInput = document.getElementById('device-image-url');
 const preview = document.getElementById('preview');
+const statusMessage = document.getElementById('status-message');
 
-// Handle Drag Events
+
 dropZone.addEventListener('dragover', (event) => {
   event.preventDefault();
   dropZone.classList.add('dragging');
 });
 
+
 dropZone.addEventListener('dragleave', () => {
   dropZone.classList.remove('dragging');
 });
+
 
 dropZone.addEventListener('drop', (event) => {
   event.preventDefault();
@@ -385,17 +397,16 @@ dropZone.addEventListener('drop', (event) => {
   if (file && file.type.startsWith('image/')) {
     const reader = new FileReader();
     reader.onload = () => {
-      // Display the image URL
       imageUrlInput.value = reader.result;
-
-      // Show image preview
       preview.innerHTML = `<img src="${reader.result}" alt="Image Preview">`;
+      statusMessage.style.display = 'none'; 
     };
     reader.readAsDataURL(file);
   } else {
     alert('Please drop a valid image file.');
   }
 });
+
 
 dropZone.addEventListener('click', () => {
   const fileInput = document.createElement('input');
@@ -409,11 +420,29 @@ dropZone.addEventListener('click', () => {
       reader.onload = () => {
         imageUrlInput.value = reader.result;
         preview.innerHTML = `<img src="${reader.result}" alt="Image Preview">`;
+        statusMessage.style.display = 'none'; 
       };
       reader.readAsDataURL(file);
     }
   });
 });
+
+
+function addDevice() {
+  if (imageUrlInput.value) {
+    statusMessage.textContent = 'Device added successfully!';
+    statusMessage.style.display = 'block'; 
+    preview.innerHTML = ''; 
+  } else {
+    statusMessage.textContent = 'Device added, but no image provided!';
+    statusMessage.style.display = 'block'; 
+  }
+}
+
+
+setTimeout(() => {
+  addDevice(); 
+}, 5000);
 
         </script>
 

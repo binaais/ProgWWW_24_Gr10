@@ -93,16 +93,47 @@ $(document).ready(function() {
                 renderDevices(currentPage);
             });
         }
+if (window.Worker) {
+    const worker = new Worker('worker.js'); // Create the worker
+    const devices = JSON.parse(localStorage.getItem('devices')) || [];
+    worker.postMessage(devices);
+    worker.onmessage = function (e) {
+        const { averageRating, error } = e.data;
+
+        if (error) {
+            console.error("Error from worker:", error);
+        } else {
+            console.log("Average Rating above", averageRating);
+            document.getElementById('average-rating').textContent = `Average Rating above ${averageRating.toFixed(2)}`;
+        }
+    };
+
+    worker.onerror = function (e) {
+        console.error("Worker Error:", e.message);
+    };
+} else {
+    console.error("Web Workers are not supported in this browser.");
+}
+
         
         $('#searchBar').on('keyup', function() {
-            const query = $(this).val().toLowerCase();
-            $('#device-container .device').filter(function() {
-                $(this).toggle(
-                    $(this).data('name').toLowerCase().includes(query) || 
-                    $(this).data('category').toLowerCase().includes(query)
-                );
+            const query = $(this).val().toLowerCase().trim();
+            $('#device-container .device').each(function() {
+                const nameElement = $(this).find('h3');
+                const categoryElement = $(this).find('p:contains("Category")');
+                const name = nameElement.text();
+                const category = categoryElement.text();
+        
+                const highlightedName = name.replace(new RegExp(query, 'gi'), (match) => `<span class="highlight">${match}</span>`);
+                const highlightedCategory = category.replace(new RegExp(query, 'gi'), (match) => `<span class="highlight">${match}</span>`);
+        
+                nameElement.html(highlightedName);
+                categoryElement.html(highlightedCategory);
+        
+                $(this).toggle(name.toLowerCase().includes(query) || category.toLowerCase().includes(query));
             });
         });
+        
     
         const homepage = $('#homepage');
         const mainContent = $('#main-content');
@@ -173,35 +204,52 @@ $(document).on('click', '.view-details-btn', function () {
 $('#device-form').on('submit', function (event) {
     event.preventDefault();
 
-    const newDevice = {
-        name: $('#device-name').val(),
-        category: $('#device-category').val(),
-        releaseDate: $('#device-release-date').val(),
-        rating: parseFloat($('#device-rating').val()),
-        imageUrl: $('#device-image-url').val(),
-        specs: $('#device-specs').val(),
-        availability: $('input[name="availability"]:checked').val(),
-        features: $('input[name="features"]:checked')
-            .map(function () {
-                return this.value; 
-            })
-            .get(), 
-        reviews: [], 
-    };
+    try {
+        const name = $('#device-name').val().trim();
+        const formattedName = name.replace(/\b\w/g, (char) => char.toUpperCase()); 
 
-    const index = $('#device-form').data('editIndex');
-    if (index !== undefined) {
-        devices[index] = newDevice; 
-        $('#device-form').removeData('editIndex');
-    } else {
-        devices.push(newDevice); 
+        const releaseDate = $('#device-release-date').val();
+        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+        if (!dateRegex.test(releaseDate)) {
+            throw new Error("Release date must be in YYYY-MM-DD format.");
+        }
+
+        const newDevice = {
+            name: formattedName,
+            category: $('#device-category').val(),
+            releaseDate: releaseDate,
+            rating: parseFloat($('#device-rating').val()),
+            imageUrl: $('#device-image-url').val(),
+            specs: $('#device-specs').val(),
+            availability: $('input[name="availability"]:checked').val(),
+            features: $('input[name="features"]:checked').map(function () {
+                return this.value;
+            }).get(),
+            reviews: [],
+        };
+
+        if (!newDevice.name || !newDevice.category || !newDevice.releaseDate || isNaN(newDevice.rating) || !newDevice.imageUrl || !newDevice.specs) {
+            throw new Error("Please fill all the required fields.");
+        }
+
+        const index = $('#device-form').data('editIndex');
+        if (index !== undefined) {
+            devices[index] = newDevice;
+            $('#device-form').removeData('editIndex');
+        } else {
+            devices.push(newDevice);
+        }
+
+        renderDevices();
+        loadAdminDevices();
+        $('#device-form')[0].reset();
+        showMessage("Device added successfully!", "success");
+    } catch (error) {
+        showMessage(error.message, "error");
     }
-
-    renderDevices();
-    loadAdminDevices();
-    $('#device-form')[0].reset();
-    showMessage("Device added successfully!", "success");
 });
+
+
 function showMessage(message, type) {
     const messageContainer = $('#message-container'); 
     messageContainer.html(`<div class="message ${type}">${message}</div>`);
@@ -210,22 +258,30 @@ function showMessage(message, type) {
         messageContainer.hide();
     }, 3000); 
 }
+
 function loadAdminDevices() {
-    $('#admin-device-list').empty();
-    devices.forEach((device, index) => {
-        const deviceHtml = `
-            <div class="admin-device" data-index="${index}">
-                <h4>${device.name}</h4>
-                <p>Category: ${device.category}</p>
-                <p>Availability: ${device.availability}</p>
-                <p>Features: ${device.features.join(', ')}</p>
-                <button onclick="editDevice(${index})">Edit</button>
-                <button onclick="deleteDevice(${index})">Delete</button>
-            </div>
-        `;
-        $('#admin-device-list').append(deviceHtml);
-    });
+    try {
+        $('#admin-device-list').empty();
+        devices.forEach((device, index) => {
+            const deviceHtml = `
+                <div class="admin-device" data-index="${index}">
+                    <h4>${device.name}</h4>
+                    <p>Category: ${device.category}</p>
+                    <p>Availability: ${device.availability}</p>
+                    <p>Features: ${device.features.join(', ')}</p>
+                    <button onclick="editDevice(${index})">Edit</button>
+                    <button onclick="deleteDevice(${index})">Delete</button>
+                </div>
+            `;
+            $('#admin-device-list').append(deviceHtml);
+        });
+    } catch (error) {
+        showMessage("Error loading devices: " + error.message, "error");
+    }
 }
+
+
+
         const sidebarMenu = $('#sidebar-menu');
         const hamburger = $('.hamburger');
         hamburger.on('click', function() {
